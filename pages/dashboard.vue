@@ -1,5 +1,8 @@
 <template>
-  <Header/>
-  <SideBar/>
+  <Header />
+  <div class="u-flex">
+    <SideBar />
+    <Dashboard />
+  </div>
 </template>
 <script></script>

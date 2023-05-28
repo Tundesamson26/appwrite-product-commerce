@@ -1,5 +1,9 @@
 <template>
-  <div class="side-nav u-width-250 u-height-100-percent">
+  <div
+    class="side-nav u-width-250 u-height-100-percent sidebar"
+    style="flex: 0 0 auto; width: 250px"
+  >
+    <Profile />
     <div class="side-nav-main">
       <section class="drop-section">
         <ul class="drop-list">
@@ -36,13 +40,20 @@
         </ul>
       </section>
     </div>
-    <div class="side-nav-bottom">
+    <div class="side-nav-bottom" style="padding-top: 30px">
       <section class="drop-section">
-        <a class="drop-button" href="">
-          <span class="icon-logout-right" aria-hidden="true"></span>
+        <NuxtLink class="drop-button" to="/">
+          <span class="icon-logout-left" aria-hidden="true"></span>
           <span class="text">Logout</span>
-        </a>
+        </NuxtLink>
       </section>
     </div>
   </div>
 </template>
+<style>
+.sidebar {
+  flex: 0 0 auto;
+  width: 250px;
+  /* Add other styles for the Sidebar */
+}
+</style>

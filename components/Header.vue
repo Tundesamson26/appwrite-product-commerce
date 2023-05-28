@@ -37,28 +37,6 @@
         ></path>
       </svg>
     </button>
-    <div class="logo is-not-mobile">
-      <ul class="buttons-list is-with-padding">
-        <li class="buttons-list-item u-padding-inline-0" q:key="Home">
-          <button
-            class="button is-text"
-            on:click="q-e5eeb8f3.js#s_l7jItVc2EKw[0 1]"
-            q:id="d"
-          >
-            Home
-          </button>
-        </li>
-        <li class="buttons-list-item u-padding-inline-0" q:key="Timeline">
-          <button
-            class="button is-text"
-            on:click="q-e5eeb8f3.js#s_l7jItVc2EKw[0 1]"
-            q:id="e"
-          >
-            Timeline
-          </button>
-        </li>
-      </ul>
-    </div>
     <div class="logo is-only-mobile"></div>
     <div
       class="main-header-end u-margin-inline-end-16 menu-right TODO-MENU-RIGHT-ONLY-IF-SIGNED-IN"
