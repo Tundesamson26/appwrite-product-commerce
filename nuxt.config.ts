@@ -1,7 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { defineNuxtConfig } from '@nuxt/bridge'
-
-export default defineNuxtConfig({
+export default({  
   router: {
     extendRoutes(routes: { path: string; component: any; }[], resolve: (arg0: string, arg1: string) => any) {
       routes.push(
@@ -26,6 +24,11 @@ export default defineNuxtConfig({
           component: resolve(__dirname, 'pages/sales.vue')
         }
       );
+    }
+  },
+  vite: {
+    css: {
+      postcss: false
     }
   },
 })

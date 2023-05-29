@@ -1,13 +1,6 @@
 <template>
-    <header class="main-header u-padding-inline-end-0 u-flex-shrink-0">
-    <button
-      aria-label="Open Menu"
-      class="button is-text is-only-icon is-only-mobile nav-btn"
-      on:click="q-e5eeb8f3.js#s_XCu0fWpB7SI[0]"
-      q:id="b"
-    >
-      <span aria-hidden="true" class="icon-menu"></span></button
-    ><button
+  <header class="main-header u-padding-inline-end-0 u-flex-shrink-0">
+    <!-- <button
       class="u-flex u-cross-center u-gap-8 u-margin-inline-end-8"
       on:click="q-e5eeb8f3.js#s_aX0icyScmUU[0]"
       q:id="c"
@@ -36,7 +29,7 @@
           fill="#F02E65"
         ></path>
       </svg>
-    </button>
+    </button> -->
     <div class="logo is-only-mobile"></div>
     <div
       class="main-header-end u-margin-inline-end-16 menu-right TODO-MENU-RIGHT-ONLY-IF-SIGNED-IN"
@@ -73,7 +66,7 @@
             <span class="icon-bell"></span>
           </button>
         </li>
-        <li class="buttons-list-item u-flex u-cross-center" q:key="sU_3">
+        <li class="buttons-list-item u-flex u-cross-center" q:key="sU_3" style="padding-right: 30px;">
           <button
             class="button is-secondary"
             on:click="q-4b92f7a6.js#s_Ukif0X8yCFE"

@@ -2,7 +2,7 @@
   "name": "nuxt-app",
   "private": true,
   "scripts": {
-    "build": "nuxi generate",
+    "build": "nuxi build",
     "dev": "nuxi dev",
     "start": "nuxi preview",
     "generate": "nuxt generate",
@@ -10,12 +10,13 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/bridge": "npm:@nuxt/bridge-edge@^3.0.0-28071266.dab55db",
     "@types/node": "^18",
     "nuxt": "^3.5.1"
   },
   "dependencies": {
     "@appwrite.io/pink": "^0.0.6",
-    "appwrite": "^11.0.0"
+    "appwrite": "^11.0.0",
+    "chart.js": "^4.3.0",
+    "vue-chartjs": "^5.2.0"
   }
 }

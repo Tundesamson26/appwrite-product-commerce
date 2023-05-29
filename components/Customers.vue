@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section style="flex: 1;">
         <div>
             Hello Customers
         </div>

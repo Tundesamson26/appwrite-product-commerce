@@ -5,3 +5,5 @@
         <Customers/>
     </div>
 </template>
+<script>
+</script>
