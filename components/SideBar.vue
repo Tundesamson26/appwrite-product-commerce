@@ -26,7 +26,7 @@
             </li>
             <li class="drop-list-item">
               <nuxt-link to="/courses" class="drop-button">
-                <span class="icon-user-group" aria-hidden="true"></span>
+                <span class="icon-briefcase" aria-hidden="true"></span>
                 <span class="text">Courses</span>
               </nuxt-link>
             </li>
