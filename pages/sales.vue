@@ -1,4 +1,6 @@
 <template>
-    <Header/>
-    <SideBar/>
+    <div class="u-flex">
+        <SideBar/>
+        <Sales/>
+    </div>
 </template>

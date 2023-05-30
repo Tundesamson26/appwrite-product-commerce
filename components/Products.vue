@@ -1,37 +1,43 @@
 <template>
-  <section class="container" style="flex: 1">
-    <div class="u-font-size-32 u-normal u-line-height-1-25" style="padding: 5px">Products</div>
-    <ul
-      class="grid-box"
-      style="
-        --grid-gap: 1rem;
-        --grid-item-size: 16rem;
-        --grid-item-size-small-screens: 8rem;
-      "
-    >
-      <li v-for="product in products.documents" :key="product.$id">
-        <div class="card">
-          <div style="max-width: fit-content; max-height: 200px">
-            <img
-              :src="product.productImage"
-              alt="image"
-              style="object-fit: cover; width: 100%; height: 100%"
-            />
+  <section style="flex: 1">
+    <div>
+      <Header />
+    </div>
+    <div class="container">
+      <div
+        class="u-font-size-32 u-normal u-line-height-1-25"
+        style="padding: 5px"
+      >
+        Products
+      </div>
+      <ul
+        class="grid-box"
+        style="
+          --grid-gap: 1rem;
+          --grid-item-size: 16rem;
+          --grid-item-size-small-screens: 8rem;
+        "
+      >
+        <li v-for="product in products.documents" :key="product.$id">
+          <div class="card">
+            <div class="image-container">
+              <img :src="product.productImage" alt="image" />
+            </div>
+            <div style="padding: 10px">
+              <p class="u-bold">{{ product.productName }}</p>
+            </div>
+            <p>{{ product.productDesc }}</p>
+            <div
+              class="u-flex u-column-gap-12 u-main-end u-cross-center u-main-center"
+              style="padding-top: 20px"
+            >
+              <p class="tag">${{ product.productPrice }}</p>
+              <p><span class="u-bold">Qty:</span> {{ product.productSize }}</p>
+            </div>
           </div>
-          <div style="padding: 10px">
-            <p class="u-bold">{{ product.productName }}</p>
-          </div>
-          <p>{{ product.productDesc }}</p>
-          <div
-            class="u-flex u-column-gap-12 u-main-end u-cross-center u-main-center"
-            style="padding-top: 20px"
-          >
-            <p class="tag">${{ product.productPrice }}</p>
-            <p><span class="u-bold">Qty:</span>{{ product.productSize }}</p>
-          </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
   </section>
 </template>
 <script>
@@ -86,3 +92,23 @@ export default {
   },
 };
 </script>
+<style>
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* max-width: 16rem; */
+}
+
+.image-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.image-container img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+</style>

@@ -17,7 +17,7 @@ export default({
         },
         {
           path: '/customers',
-          component: resolve(__dirname, 'pages/customers.vue')
+          component: resolve(__dirname, 'pages/courses.vue')
         },
         {
           path: '/sales',

@@ -1,7 +1,7 @@
 <template>
   <section class="sidebar-wrapper">
     <div class="side-nav u-width-250 u-height-100-percent sidebar">
-      <!-- <button><span class="icon-menu"></span></button> -->
+      <button><span class="icon-menu"></span></button>
       <Profile />
       <div class="side-nav-main">
         <section class="drop-section">
@@ -25,9 +25,9 @@
               </nuxt-link>
             </li>
             <li class="drop-list-item">
-              <nuxt-link to="/customers" class="drop-button">
+              <nuxt-link to="/courses" class="drop-button">
                 <span class="icon-user-group" aria-hidden="true"></span>
-                <span class="text">Customers</span>
+                <span class="text">Courses</span>
               </nuxt-link>
             </li>
             <li class="drop-list-item">
@@ -55,11 +55,11 @@
   display: flex;
   flex-direction: column;
   height: 100vh; /* Set the height to full viewport height */
-  /* flex: 0 0 auto; 
-  width: 250px */
+  flex: 0 0 auto; 
+  width: 250px
 }
 .sidebar {
-  /* flex: 0 0 auto; */
+  flex: 0 0 auto;
   width: 250px;
   flex: 1; /* Allow the sidebar to expand to fill the available height */
   overflow-y: auto; /* Enable vertical scrolling if content overflows */

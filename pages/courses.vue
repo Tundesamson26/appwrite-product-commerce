@@ -1,8 +1,7 @@
 <template>
-    <Header/>
     <div class="u-flex">
         <SideBar/>
-        <Customers/>
+        <Courses/>
     </div>
 </template>
 <script>

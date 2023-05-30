@@ -1,6 +1,10 @@
 <template>
-  <section class="container" style="flex: 1">
-    <div class="u-flex u-main-center u-main-space-between u-cross-center">
+  <section>
+    <div>
+      <Header/>
+    </div>
+    <div class="container">
+      <div class="u-flex u-main-center u-main-space-between u-cross-center">
       <div class="u-text-center">
         <button class="button u-margin-inline-auto u-margin-block-start-24">
           <span class="text">All services</span>
@@ -121,9 +125,10 @@
         </div>
       </div>
     </div>
-    <!-- tab start -->
-    <TabContent/>
+     <!-- tab start -->
+     <TabContent/>
     <!-- tab ends here -->
+    </div>
   </section>
 </template>
 <style>

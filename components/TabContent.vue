@@ -1,4 +1,5 @@
 <template>
+  <section style="flex: 1">
     <div class="tabs" style="width: 100%; padding-top: 30px">
       <ul class="tabs-list">
         <li class="tabs-item">
@@ -32,38 +33,38 @@
           </a>
         </li>
       </ul>
-  
+
       <div v-if="activeTab === 'products'">
         <!-- Content for 'products' tab -->
-        <AllProducts/>
+        <AllProducts />
       </div>
       <div v-if="activeTab === 'courses'">
         <!-- Content for 'Courses' tab -->
-        <p>Courses tab content goes here</p>
+        <AllCourses />
       </div>
       <div v-if="activeTab === 'tickets'">
         <!-- Content for 'Tickets' tab -->
-        <p>Tickets tab content goes here</p>
+        <AllTickets />
       </div>
     </div>
-  </template>
-  
-  <script lang="js">
-  export default {
-    data() {
-      return {
-        activeTab: 'products', // Set the initially active tab
-      };
+  </section>
+</template>
+
+<script lang="js">
+export default {
+  data() {
+    return {
+      activeTab: 'products', // Set the initially active tab
+    };
+  },
+  methods: {
+    selectTab(tab) {
+      this.activeTab = tab; // Update the active tab when clicked
     },
-    methods: {
-      selectTab(tab) {
-        this.activeTab = tab; // Update the active tab when clicked
-      },
-    },
-  };
-  </script>
-  
-  <style>
-  /* Add your styles for the tabs here */
-  </style>
-  
+  },
+};
+</script>
+
+<style>
+/* Add your styles for the tabs here */
+</style>
