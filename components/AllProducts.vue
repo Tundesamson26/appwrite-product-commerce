@@ -1,6 +1,6 @@
 <template>
   <div class="" style="padding-top: 20px">
-    <table class="table is-selected-columns-mobile">
+    <table class="table is-selected-columns-mobile container">
       <thead class="table-thead">
         <tr class="table-row">
           <th class="table-thead-col" style="--p-col-width: 100">

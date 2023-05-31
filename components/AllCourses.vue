@@ -140,7 +140,6 @@ export default {
         courseDesc.value = "";
         fileId.value = "";
         coursePrice.value = "";
-        console.log(response)
         alert("Product saved successfully");
       } catch (error) {
         console.log(error);
