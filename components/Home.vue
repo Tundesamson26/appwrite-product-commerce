@@ -29,4 +29,8 @@
 <script lang="ts">
 import "@appwrite.io/pink"; // optionally, add icons
 import "@appwrite.io/pink-icons";
+
+export default {
+  // Component options and logic
+}
 </script>
