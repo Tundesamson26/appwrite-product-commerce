@@ -31,4 +31,10 @@ export default({
       postcss: false
     }
   },
+  runtimeConfig: {
+    public: {
+      PROJECT_ID: process.env.NUXT_PROJECT_ID,
+      API_ENDPOINT: process.env.NUXT_API_ENDPOINT,
+    },
+  },
 })

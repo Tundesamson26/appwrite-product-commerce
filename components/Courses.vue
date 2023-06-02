@@ -4,38 +4,45 @@
       <Header />
     </div>
     <div class="container">
-  <ul
-    class="grid-box"
-    style="
-      --grid-gap: 1rem;
-      --grid-item-size: 16rem;
-      --grid-item-size-small-screens: 8rem;
-    "
-  >
-    <li v-for="course in courses" :key="course.id">
-      <div class="card">
-        <h3>{{ course.courseTitle }}</h3>
-        <div>
-          <p>{{ course.courseDesc }}</p>
-        </div>
-        <div>
-          <object
-            :data="course.link"
-            type="application/pdf"
-            width="100"
-            height="100"
-          ></object>
-        </div>
-        <div>
-          <span class="tag">{{ course.coursePrice }}</span>
-        </div>
-      </div>
-    </li>
-  </ul>
-</div>
-
+      <ul
+        class="grid-box"
+        style="
+          --grid-gap: 1rem;
+          --grid-item-size: 16rem;
+          --grid-item-size-small-screens: 8rem;
+        "
+      >
+        <li v-for="course in courses" :key="course.id">
+          <div class="card">
+            <h3>{{ course.courseTitle }}</h3>
+            <div>
+              <p>{{ course.courseDesc }}</p>
+            </div>
+            <div>
+              <object
+                :data="course.link"
+                type="application/pdf"
+                class="file-object"
+              ></object>
+            </div>
+            <div>
+              <span class="tag">${{ course.coursePrice }}</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
   </section>
 </template>
+<style scoped>
+.file-object {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: none;
+  outline: none;
+}
+</style>
 <script>
 import { databases, storage, createAnonymousSession } from "@/utils/web-init";
 import { Query } from "appwrite";
