@@ -19,7 +19,8 @@
                 <div class="grid-item-1-start-start">
                   <div class="eyebrow-heading-3">Balance</div>
                   <h2 class="heading-level-6 u-margin-block-start-8">
-                    <span>$</span> 5,000
+                    <span>$</span> 
+                    <span>5,000</span>
                   </h2>
                 </div>
                 <div class="grid-item-1-end-start">

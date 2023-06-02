@@ -89,7 +89,7 @@
             <template v-else>
               <!-- Display product price -->
               <span class="tag">
-                {{ product.productPrice }}
+                ${{ product.productPrice }}
               </span>
             </template>
           </td>

@@ -53,7 +53,7 @@
                     <input
                       type="text"
                       class="input-text"
-                      placeholder="Product Image"
+                      placeholder="Image link"
                       v-model="productImage"
                     />
                   </div>
