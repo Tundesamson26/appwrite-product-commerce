@@ -1,6 +1,7 @@
 {
   "name": "nuxt-app",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "nuxi build",
     "dev": "nuxi dev",
@@ -17,6 +18,8 @@
     "@appwrite.io/pink": "^0.0.6",
     "appwrite": "^11.0.0",
     "chart.js": "^4.3.0",
+    "pdf-thumbnail": "^1.0.6",
+    "pdfjs-dist": "^3.7.107",
     "vue-chartjs": "^5.2.0"
   }
 }

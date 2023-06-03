@@ -18,15 +18,21 @@
             <div>
               <p>{{ course.courseDesc }}</p>
             </div>
-            <div>
-              <object
-                :data="course.link"
-                type="application/pdf"
-                class="file-object"
-              ></object>
+            <div class="file-preview">
+              <div class="thumbnail">
+                <img :src="getThumbnail(course.link)" alt="Thumbnail" />
+              </div>
+              <a
+                :href="course.link"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="preview-link"
+                >Open</a
+              >
             </div>
+
             <div>
-              <span class="tag">${{ course.coursePrice }}</span>
+              <span class="tag">{{ course.coursePrice }}</span>
             </div>
           </div>
         </li>
@@ -35,17 +41,55 @@
   </section>
 </template>
 <style scoped>
-.file-object {
+.file-preview {
+  position: relative;
+  height: 0;
+  padding-bottom: 75%; /* Aspect ratio 4:3 (adjust as needed) */
+  overflow: hidden;
+}
+
+.thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  border: none;
-  outline: none;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.preview-link:hover {
+  opacity: 1;
 }
 </style>
+
 <script>
 import { databases, storage, createAnonymousSession } from "@/utils/web-init";
 import { Query } from "appwrite";
+import { PDFDocumentProxy } from 'pdfjs-dist/build/pdf';
+
+
 export default {
   name: "Course",
   props: {
@@ -102,6 +146,35 @@ export default {
         this.courses = courses;
       } catch (error) {
         console.log(error);
+      }
+    },
+    async getThumbnail(fileUrl) {
+      try {
+        const pdf = await PDFDocumentProxy.create(fileUrl);
+        const thumbnailPageNum = 1; // The page number to generate the thumbnail from
+        const thumbnailScale = 0.5; // The scale factor for the thumbnail size
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+
+        const page = await pdf.getPage(thumbnailPageNum);
+        const viewport = page.getViewport({ scale: thumbnailScale });
+
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+        const renderContext = {
+          canvasContext: context,
+          viewport: viewport,
+        };
+
+        await page.render(renderContext).promise;
+
+        const thumbnailUrl = canvas.toDataURL();
+
+        return thumbnailUrl;
+      } catch (error) {
+        console.log(error);
+        return ""; // Return an empty string if an error occurs during thumbnail generation
       }
     },
   },
