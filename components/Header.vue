@@ -1,7 +1,7 @@
 <template>
   <section style="flex: 1; width: 100%;">
     <header class="main-header u-padding-inline-end-0 u-flex-shrink-0">
-      <!-- <div class="logo is-only-mobile"></div> -->
+      <div class="logo is-only-mobile"></div>
       <div
         class="main-header-end u-margin-inline-end-16 menu-right TODO-MENU-RIGHT-ONLY-IF-SIGNED-IN"
       >

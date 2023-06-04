@@ -6,135 +6,149 @@
           <th class="table-thead-col" style="--p-col-width: 100">
             <span class="eyebrow-heading-3">Name</span>
           </th>
-          <th
-            class="table-thead-col is-only-desktop"
-            style="--p-col-width: 100"
-          >
+          <th class="table-thead-col is-only-desktop" style="--p-col-width: 100">
             <span class="eyebrow-heading-3">Image</span>
           </th>
-          <th
-            class="table-thead-col is-only-desktop"
-            style="--p-col-width: 200"
-          >
+          <th class="table-thead-col is-only-desktop" style="--p-col-width: 200">
             <span class="eyebrow-heading-3">Description</span>
           </th>
-          <th
-            class="table-thead-col is-only-desktop"
-            style="--p-col-width: 100"
-          >
+          <th class="table-thead-col is-only-desktop" style="--p-col-width: 100">
             <span class="eyebrow-heading-3">Price</span>
           </th>
-          <th
-            class="table-thead-col is-only-desktop"
-            style="--p-col-width: 120"
-          >
+          <th class="table-thead-col is-only-desktop" style="--p-col-width: 120">
             <span class="eyebrow-heading-3">Qty</span>
           </th>
           <th class="table-thead-col" style="--p-col-width: 30"></th>
         </tr>
       </thead>
       <tbody class="table-tbody">
-        <tr v-for="product in products" :key="product.$id" class="table-row">
+        <tr v-for="(product, index) in products" :key="product.$id" class="table-row">
           <td class="table-col" data-title="Name">
             <div class="u-inline-flex u-cross-center u-gap-12">
-              <template v-if="editMode === product.$id">
-                <!-- Input field for editing name -->
-                <input v-model="product.productName" />
-              </template>
-              <template v-else>
+              <div>
                 <!-- Display product name -->
                 <span class="text u-break-word u-line-height-1-5">
                   {{ product.productName }}
                 </span>
-              </template>
+              </div>
             </div>
           </td>
           <td class="table-col is-only-desktop" data-title="Type">
-            <template v-if="editMode === product.$id">
-              <!-- Input field for editing image -->
-              <input v-model="product.productImage" />
-            </template>
-            <template v-else>
+            <div>
               <!-- Display product image -->
               <div class="text">
                 <span class="image">
-                  <img
-                    class="avatar"
-                    width="32"
-                    height="32"
-                    :src="product.productImage"
-                    alt=""
-                  />
+                  <img class="avatar" width="32" height="32" :src="product.productImage" alt="" />
                 </span>
               </div>
-            </template>
+            </div>
           </td>
           <td class="table-col is-only-desktop" data-title="Type">
-            <template v-if="editMode === product.$id">
-              <!-- Input field for editing desc -->
-              <input v-model="product.productDesc" />
-            </template>
-            <template v-else>
+            <div>
               <!-- Display product desc -->
               <span class="text u-break-word u-line-height-1-5">
                 {{ product.productDesc }}
               </span>
-            </template>
+            </div>
           </td>
           <td class="table-col is-only-desktop" data-title="Size">
-            <template v-if="editMode === product.$id">
-              <!-- Input field for editing price -->
-              <input v-model="product.productPrice" />
-            </template>
-            <template v-else>
+            <div>
               <!-- Display product price -->
-              <span class="tag">
-                ${{ product.productPrice }}
-              </span>
-            </template>
+              <span class="tag"> ${{ product.productPrice }} </span>
+            </div>
           </td>
           <td class="table-col is-only-desktop" data-title="Created">
-            <template v-if="editMode === product.$id">
-              <!-- Input field for editing size -->
-              <input v-model="product.productSize" />
-            </template>
-            <template v-else>
+            <div>
               <!-- Display product size -->
               <span class="text u-break-word u-line-height-1-5">
                 {{ product.productSize }}
               </span>
-            </template>
+            </div>
           </td>
           <td class="table-col u-overflow-visible">
             <div class="u-flex u-cross-center u-main-end">
-              <template v-if="editMode === product.$id">
-                <!-- Save button for editing -->
-                <button
-                  class="button is-text is-only-icon"
-                  type="button"
-                  @click="saveProduct(product)"
-                >
-                  <span class="icon-save"></span>
-                </button>
-              </template>
-              <template v-else>
+              <div>
                 <!-- Edit button -->
-                <button
-                  class="button is-text is-only-icon"
-                  type="button"
-                  aria-label="more options"
-                  @click="editProduct(product.$id)"
-                >
+                <button class="button is-text is-only-icon" type="button" aria-label="more options"
+                  @click="editProduct(product.$id)">
                   <span class="icon-pencil"></span>
                 </button>
-              </template>
+                <div v-if="showModal && editMode && editMode.index !== null" class="modal-overlay" id="dialog">
+                  <div class="modal">
+                    <form class="modal-form" method="dialog" @submit.prevent="">
+                      <header class="modal-header">
+                        <h4 class="modal-title heading-level-5">Product</h4>
+                        <button class="button is-text is-small is-only-icon" aria-label="Close modal"
+                          @click="showModal = false">
+                          <span class="icon-x" aria-hidden="true"></span>
+                        </button>
+                      </header>
+                      <ul class="form-list">
+                        <li class="form-item">
+                          <label class="label">Product Name</label>
+                          <div class="input-text-wrapper">
+                            <input type="text" class="input-text u-padding-inline-end-56" placeholder="Product name"
+                              v-model="products[editMode.index].productName" />
+                          </div>
+                        </li>
+                        <li class="form-item">
+                          <label class="label">Product Image</label>
+                          <div class="input-text-wrapper">
+                            <input type="text" class="input-text" placeholder="Image link"
+                              v-model="products[editMode.index].productImage" />
+                          </div>
+                        </li>
+                        <li class="form-item">
+                          <label class="label">Description</label>
+                          <div class="input-text-wrapper">
+                            <input type="text" class="input-text" placeholder="Product Description"
+                              v-model="products[editMode.index].productDesc" />
+                          </div>
+                        </li>
+                        <div class="u-flex u-cross-center">
+                          <li class="form-item">
+                            <label class="label">Price</label>
+                            <div class="input-text-wrapper">
+                              <input type="text" name="productPrice" placeholder="Price"
+                                v-model="products[editMode.index].productPrice" />
+                            </div>
+                          </li>
+                          <li class="form-item">
+                            <label class="label" for="size">Quantity</label>
+                            <div class="input-text-wrapper">
+                              <div class="select" style="width: 122%">
+                                <select name="pets" id="pet-select" v-model="products[editMode.index].productSize">
+                                  <option value="">Select option</option>
+                                  <option value="20">20</option>
+                                  <option value="40">40</option>
+                                  <option value="50">50</option>
+                                  <option value="60">60</option>
+                                  <option value="89">80</option>
+                                  <option value="100">100</option>
+                                </select>
+                                <span class="icon-cheveron-down" aria-hidden="true"></span>
+                              </div>
+                            </div>
+                          </li>
+                        </div>
+                      </ul>
+                      <div class="modal-footer">
+                        <div class="u-flex u-main-end u-gap-16">
+                          <button class="button is-secondary" @click="showModal = false">
+                            <span class="text">Cancel</span>
+                          </button>
+                          <button class="button" type="submit" @click.prevent="updateProduct(product.$id)">
+                            <span class="text">Update</span>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
               <!-- Delete button -->
-              <button
-                class="button is-text is-only-icon"
-                type="button"
-                aria-label="more options"
-                @click="deleteProduct(product.$id)"
-              >
+              <button class="button is-text is-only-icon" type="button" aria-label="more options"
+                @click="deleteProduct(product.$id)">
                 <span class="icon-trash" aria-hidden="true"></span>
               </button>
             </div>
@@ -145,48 +159,90 @@
   </div>
   <Pagination />
 </template>
+<style>
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.modal {
+  position: relative;
+  width: 400px;
+  background-color: #fff;
+  padding: 20px;
+  z-index: 10000;
+}
+</style>
 
 <script lang="js">
-import { ref, onMounted } from "vue";
+import { reactive, ref, onMounted } from "vue";
 import "@appwrite.io/pink";
 import "@appwrite.io/pink-icons";
 import { client, account, databases } from "@/utils/web-init";
+import Pagination from "@/components/Pagination.vue";
+
 
 export default {
+  // props: ["products"],
+  components: {
+    Pagination,
+  },
+
   setup() {
+    const showModal = ref(false);
     const products = ref([]);
-    const editMode = ref(null);
+    const editMode = reactive({ index: null });
+    // const editMode = ref(null);
 
     const editProduct = (productId) => {
-      editMode.value = productId;
+      const productIndex = products.value.findIndex((product) => product.$id === productId);
+      if (productIndex !== -1) {
+        editMode.index = productIndex;
+        console.log(editMode.index);
+        showModal.value = true;
+      }
     };
 
-    const saveProduct = async (product) => {
+
+    const updateProduct = async (productId) => {
       try {
+        const productIndex = products.value.findIndex((product) => product.$id === productId);
+        if (productIndex === -1) {
+          throw new Error("Product not found");
+        }
+
+        const updatedProduct = { ...products.value[productIndex] };
         // Update the product in the database using the modified data
         await databases.updateDocument(
           "6473b8ef7c15c4def6f0",
           "6473b9100af3a35ca785",
-          product.$id,
+          productId,
           {
-            productName: product.productName,
-            productImage: product.productImage,
-            productDesc: product.productDesc,
-            productPrice: product.productPrice,
-            productSize: product.productSize,
+            productName: updatedProduct.productName,
+            productImage: updatedProduct.productImage,
+            productDesc: updatedProduct.productDesc,
+            productPrice: updatedProduct.productPrice,
+            productSize: updatedProduct.productSize,
             // Update other fields as needed
           }
         );
 
         alert("Product has been updated successfully");
-        editMode.value = null; // Exit edit mode
+        editMode.index = null; // Exit edit mode
         await getProduct();
       } catch (error) {
         console.log("Error updating product:", error.message);
         alert("Product was not updated");
       }
     };
-
 
     const getProduct = async () => {
       try {
@@ -235,10 +291,12 @@ export default {
     });
 
     return {
+      showModal,
       products,
-      editProduct, // Expose the editProduct function
+      editProduct,
       deleteProduct,
-      saveProduct,
+      updateProduct,
+      editMode
     };
   },
 };
