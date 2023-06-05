@@ -18,7 +18,7 @@
                 <input
                   type="email"
                   class="input-text u-padding-inline-end-56"
-                  placeholder="email address"
+                  placeholder="Email address"
                   name="email"
                   v-model.lazy="email"
                 />
@@ -26,38 +26,46 @@
             </li>
             <li class="form-item">
               <label class="label">Password</label>
-              <div class="input-text-wrapper">
+              <div class="input-text-wrapper" style="--amount-of-buttons: 1">
                 <input
                   type="password"
-                  class="input"
-                  placeholder="password"
-                  name="password"
+                  class="input-text"
+                  placeholder="Password"
                   v-model.lazy="password"
                 />
+                <button
+                  class="show-password-button"
+                  aria-label="show password"
+                  type="button"
+                >
+                  <span class="icon-eye" aria-hidden="true"></span>
+                </button>
               </div>
             </li>
             <li class="form-item">
               <label class="label">Confirm Password</label>
-              <div class="input-text-wrapper">
+              <div class="input-text-wrapper" style="--amount-of-buttons: 1">
                 <input
                   type="password"
-                  class="input"
-                  placeholder="password"
-                  name="password"
+                  class="input-text"
+                  placeholder="Confirm Password"
                   v-model.lazy="confirmPassword"
                 />
+                <button
+                  class="show-password-button"
+                  aria-label="show password"
+                  type="button"
+                >
+                  <span class="icon-eye" aria-hidden="true"></span>
+                </button>
               </div>
             </li>
           </ul>
 
-          <div class="u-flex u-main-end u-gap-12" style="margin-top: 20px">
-            <button
-              class="button u-width-100 u-main-center"
-              type="submit"
-              style="width: 100%"
-            >
-              Signup
-            </button>
+          <div class="form-footer">
+            <div class="u-flex u-main-end u-gap-12">
+              <button class="button" type="submit">Signup</button>
+            </div>
           </div>
         </form>
       </div>

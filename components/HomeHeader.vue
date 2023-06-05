@@ -1,11 +1,11 @@
 <template>
   <header class="main-header u-padding-inline-end-0 astro-I7CAYJX6">
-    <button
+    <!-- <button
       class="button is-text is-only-icon is-not-desktop nav-btn astro-I7CAYJX6"
       aria-label="Open Menu"
     >
       <span aria-hidden="true" class="icon-menu astro-I7CAYJX6"></span>
-    </button>
+    </button> -->
     <a class="logo astro-I7CAYJX6" href="/">
       <h1 class="heading-level-5">
         <span class="u-color-text-pink">uCan</span>Earn
@@ -26,11 +26,11 @@
           <button class="buttons-list-item buttons">
             <NuxtLink
               to="/signin"
-              title="SignUp"
+              title="Signin"
               rel="noopener noreferrer"
-              class="buttons is-text astro-I7CAYJX6"
+              class="buttons is-text"
             >
-              <span class="tag u-text-center"> Signin </span>
+              <span class="button is-secondary u-text-center"> Signin </span>
             </NuxtLink>
           </button>
         </div>
@@ -39,11 +39,11 @@
         >
           <NuxtLink
             to="signup"
-            title="SignUp"
+            title="Signup"
             rel="noopener noreferrer"
-            class="button is-text astro-I7CAYJX6"
+            class="button is-text"
           >
-            <span class="tag u-text-center astro-I7CAYJX6">Signup </span>
+            <span class="button u-text-center">Signup </span>
           </NuxtLink>
         </li>
       </ul>
