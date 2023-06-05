@@ -26,10 +26,9 @@
                 </div>
                 <div class="grid-item-1-end-start">
                   <div class="u-flex u-gap-16 u-flex-wrap">
-                    <div class="tag">
-                      <span class="icon-duplicate" aria-hidden="true"></span>
-                      <span class="text">Copy account</span>
-                    </div>
+                    <button class="button">
+                      <span class="text">Fund online</span>
+                    </button>
                   </div>
                 </div>
                 <div class="grid-item-1-end-end">
@@ -178,18 +177,34 @@
                 <tr class="table-row">
                   <td class="table-col" data-title="Refrences">
                     <div class="u-inline-flex u-cross-center u-gap-12">
-                      <span class="image">
-                        <img
-                          class="avatar"
-                          width="32"
-                          height="32"
-                          src="https://unsplash.it/41"
-                          alt=""
-                        />
-                      </span>
-                      <span class="text u-break-word u-line-height-1-5"
-                        >airport.jpg</span
-                      >
+                      <span class="text u-break-word u-line-height-1-5">airport.jpg</span>
+                    </div>
+                  </td>
+                  <td class="table-col is-only-desktop" data-title="Details">
+                    <div class="text"><span class="text">image/jpeg</span></div>
+                  </td>
+                  <td class="table-col is-only-desktop" data-title="Amount">
+                    <span class="tag">$ 350.5</span>
+                  </td>
+                  <td class="table-col is-only-desktop" data-title="Date">
+                    <time class="text">11 Mar 2022</time>
+                  </td>
+                  <td class="table-col u-overflow-visible">
+                    <button
+                      class="button is-text is-only-icon"
+                      aria-label="more options"
+                    >
+                      <span
+                        class="icon-dots-horizontal"
+                        aria-hidden="true"
+                      ></span>
+                    </button>
+                  </td>
+                </tr>
+                <tr class="table-row">
+                  <td class="table-col" data-title="Refrences">
+                    <div class="u-inline-flex u-cross-center u-gap-12">
+                      <span class="text u-break-word u-line-height-1-5">airport.jpg</span>
                     </div>
                   </td>
                   <td class="table-col is-only-desktop" data-title="Details">
