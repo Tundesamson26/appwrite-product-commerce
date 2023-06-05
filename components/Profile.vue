@@ -7,7 +7,7 @@
       width="66"
       height="66"
     />
-    <h3 class="body-text-2 u-margin-block-start-16">Kristin Watson</h3>
+    <h3 class="body-text-2 u-margin-block-start-16">Tunde Samson</h3>
     <!-- <button class="button u-margin-inline-auto u-margin-block-start-24">
       <span class="text">Edit profile</span>
     </button> -->
