@@ -9,7 +9,6 @@
 import { account } from "~/utils/web-init";
 
 export default {
-  // ...
 
   async beforeRouteEnter(to, from, next) {
     if (!(await account.get())) {
