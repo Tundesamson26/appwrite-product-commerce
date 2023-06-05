@@ -1,5 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default({  
+  buildModules: [
+    '@nuxtjs/vite'
+  ],
   router: {
     extendRoutes(routes: { path: string; component: any; }[], resolve: (arg0: string, arg1: string) => any) {
       routes.push(
@@ -36,5 +39,5 @@ export default({
       PROJECT_ID: process.env.NUXT_PROJECT_ID,
       API_ENDPOINT: process.env.NUXT_API_ENDPOINT,
     },
-  },
+  },  
 })

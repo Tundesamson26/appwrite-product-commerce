@@ -1,18 +1,20 @@
 <template>
   <header class="main-header u-padding-inline-end-0 astro-I7CAYJX6">
-    <!-- <button
-      class="button is-text is-only-icon is-not-desktop nav-btn astro-I7CAYJX6"
+    <button
+      class="button is-text is-only-icon is-not-desktop nav-btn menu-bar"
       aria-label="Open Menu"
+      @click="toggleMenu"
+      :class="{ active: isMenuOpen }"
     >
-      <span aria-hidden="true" class="icon-menu astro-I7CAYJX6"></span>
-    </button> -->
+      <span aria-hidden="true" class="icon-menu"></span>
+    </button>
     <a class="logo astro-I7CAYJX6" href="/">
       <h1 class="heading-level-5">
         <span class="u-color-text-pink">uCan</span>Earn
       </h1>
     </a>
-    <div class="main-header-end u-margin-inline-end-16 astro-I7CAYJX6">
-      <ul class="buttons-list is-with-padding astro-I7CAYJX6">
+    <div class="main-header-end navbar u-margin-inline-end-16 astro-I7CAYJX6">
+      <ul class="buttons-list left-menu is-with-padding">
         <div
           class="u-flex u-cross-center u-main-space-between"
           style="padding-right: 20px"
@@ -50,3 +52,53 @@
     </div>
   </header>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      isMenuOpen: false,
+    };
+  },
+  methods: {
+    toggleMenu() {
+      this.isMenuOpen = !this.isMenuOpen;
+    },
+  },
+};
+</script>
+<style scoped>
+@media (max-width: 700px) {
+  .menu-bar {
+    display: block;
+  }
+  .menu-bar:hover {
+    opacity: 0.5;
+  }
+  .navbar ul.left-menu {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #f2f2f2;
+    width: 50%;
+    height: 100%;
+    border-right: #ccc 1px solid;
+    opacity: 0.9;
+    padding: 30px;
+    transform: translateX(-500px);
+    transition: transform 0.5s ease-in-out;
+  }
+  .navbar ul.left-menu li {
+    padding: 10px;
+    border-bottom: #ccc solid 1px;
+    font-size: 14px;
+  }
+  .navbar ul.left-menu li:last-child {
+    border-bottom: 0;
+  }
+  .navbar ul.left-menu.show {
+    transform: translateX(-20px);
+    transform: translateX(0);
+  }
+}
+</style>

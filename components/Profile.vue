@@ -1,5 +1,5 @@
 <template>
-  <article class="u-text-center" style="margin-top: 60px; margin-bottom: 10px; margin-left: -30px;">
+  <article class="u-text-center" style="margin-top: 30px; margin-bottom: 10px;">
     <img
       class="avatar is-size-x-large u-margin-inline-auto"
       src="https://source.unsplash.com/LaK153ghdig/132x132"

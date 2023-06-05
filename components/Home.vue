@@ -14,7 +14,7 @@
           </h2>
           <p
             class="body-text-1 u-normal u-small u-margin-block-start-16"
-            style="padding-bottom: 10px"
+            style="padding-bottom: 10px; font-size: 18px;"
           >
             uCanEarn is your all-in-one e-commerce store builder to sell any
             kind of digital product and service to anyone, anywhere in the
