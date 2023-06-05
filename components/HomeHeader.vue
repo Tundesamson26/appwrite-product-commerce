@@ -4,7 +4,6 @@
       class="button is-text is-only-icon is-not-desktop nav-btn menu-bar"
       aria-label="Open Menu"
       @click="toggleMenu"
-      :class="{ active: isMenuOpen }"
     >
       <span aria-hidden="true" class="icon-menu"></span>
     </button>
@@ -14,31 +13,24 @@
       </h1>
     </a>
     <div class="main-header-end navbar u-margin-inline-end-16 astro-I7CAYJX6">
-      <ul class="buttons-list left-menu is-with-padding">
-        <div
-          class="u-flex u-cross-center u-main-space-between"
-          style="padding-right: 20px"
-        >
-          <li class="buttons-list-item astro-I7CAYJX6">
-            <a href="/">How It Works</a>
-          </li>
-          <li class="buttons-list-item astro-I7CAYJX6">
-            <a href="/">Pricing</a>
-          </li>
-          <button class="buttons-list-item buttons">
-            <NuxtLink
-              to="/signin"
-              title="Signin"
-              rel="noopener noreferrer"
-              class="buttons is-text"
-            >
-              <span class="button is-secondary u-text-center"> Signin </span>
-            </NuxtLink>
-          </button>
-        </div>
-        <li
-          class="buttons-list-item is-not-mobile u-padding-inline-0 astro-I7CAYJX6"
-        >
+      <ul class="buttons-list left-menu is-with-padding u-cross-center" :class="{ show: isMenuOpen }">
+        <li class="buttons-list-item astro-I7CAYJX6">
+          <a href="/">How It Works</a>
+        </li>
+        <li class="buttons-list-item astro-I7CAYJX6">
+          <a href="/">Pricing</a>
+        </li>
+        <li class="buttons-list-item buttons">
+          <NuxtLink
+            to="/signin"
+            title="Signin"
+            rel="noopener noreferrer"
+            class="buttons is-text"
+          >
+            <span class="button is-secondary u-text-center"> Signin </span>
+          </NuxtLink>
+        </li>
+        <li class="buttons-list-item u-padding-inline-0 astro-I7CAYJX6">
           <NuxtLink
             to="signup"
             title="Signup"
@@ -52,6 +44,7 @@
     </div>
   </header>
 </template>
+
 <script>
 export default {
   data() {
@@ -66,6 +59,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 @media (max-width: 700px) {
   .menu-bar {
@@ -81,7 +75,7 @@ export default {
     right: 0;
     background: #f2f2f2;
     width: 50%;
-    height: 100%;
+    min-height: 100%;
     border-right: #ccc 1px solid;
     opacity: 0.9;
     padding: 30px;
@@ -97,7 +91,6 @@ export default {
     border-bottom: 0;
   }
   .navbar ul.left-menu.show {
-    transform: translateX(-20px);
     transform: translateX(0);
   }
 }
