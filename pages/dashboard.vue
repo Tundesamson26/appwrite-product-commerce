@@ -5,7 +5,7 @@
     <Dashboard style="flex: 1;"/>
   </div>
 </template>
-<script>
+<!-- <script>
 import { account } from "~/utils/web-init";
 
 export default {
@@ -19,4 +19,4 @@ export default {
     }
   },
 };
-</script>
+</script> -->
