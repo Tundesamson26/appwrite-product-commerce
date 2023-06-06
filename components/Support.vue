@@ -31,12 +31,7 @@
                     class="message_wrapper u-flex u-cross-center u-cross-child-start u-column-gap-4"
                   >
                     <div class="">
-                      <img
-                        :src="avatar"
-                        alt="avatar"
-                        width="25"
-                        height="25"
-                      />
+                      <img :src="avatar" alt="avatar" width="25" height="25" />
                     </div>
                     <div class="">{{ message }}</div>
                   </div>
@@ -99,6 +94,16 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 998; /* Lower z-index than the support button */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 40px; /* Adjust the margin as needed */
 }
 </style>
 <script>
