@@ -1,7 +1,7 @@
 <template>
-    <!-- <Header/> -->
-    <div class="u-flex">
-        <SideBar/>
-        <Wallet/>
-    </div> 
+  <div class="u-flex">
+    <SideBar />
+    <Wallet />
+  </div>
+  <Support />
 </template>
