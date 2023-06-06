@@ -28,7 +28,7 @@
               <div>
                 <!-- Display product name -->
                 <span class="text u-break-word u-line-height-1-5">
-                  {{ product.productName }}
+                   {{ product.productName }}
                 </span>
               </div>
             </div>
@@ -191,7 +191,6 @@ import Pagination from "@/components/Pagination.vue";
 
 
 export default {
-  // props: ["products"],
   components: {
     Pagination,
   },
@@ -200,7 +199,6 @@ export default {
     const showModal = ref(false);
     const products = ref([]);
     const editMode = reactive({ index: null });
-    // const editMode = ref(null);
 
     const editProduct = (productId) => {
       const productIndex = products.value.findIndex((product) => product.$id === productId);
@@ -210,7 +208,6 @@ export default {
         showModal.value = true;
       }
     };
-
 
     const updateProduct = async (productId) => {
       try {

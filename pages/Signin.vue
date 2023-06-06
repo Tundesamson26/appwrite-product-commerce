@@ -53,6 +53,10 @@
               Login
             </button>
           </div>
+          <div class="" style="margin-bottom: -30px; padding-top: 10px;">
+            <span>You don't have an account?</span>
+            <NuxtLink to="/signup" class="tag" style="margin-left: 5px;">Signup</NuxtLink>
+          </div>
         </div>
       </form>
     </div>
@@ -81,7 +85,7 @@ export default {
     };
   },
   mounted() {
-    if (account.get !== null) {
+    if (account.get() !== null) {
       try {
         client.subscribe("documents", (response) => {
           console.log(response);

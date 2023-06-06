@@ -1,7 +1,6 @@
 <template>
   <section class="sidebar-wrapper">
-    <div class="u-width-250 u-height-100-percent">
-      <button class="menu-button" @click="toggleSidebar" style="background-color: var(--color-neutral-0);">
+    <button class="menu-button" @click="toggleSidebar" style="background-color: var(--color-neutral-0);">
         <span class="icon-menu" style="font-size: 30px;"></span>
       </button>
       <div class="side-nav sidebar" :class="{ 'sidebar-open': isSidebarOpen }">
@@ -51,7 +50,6 @@
           </section>
         </div>
       </div>
-    </div>
   </section>
 </template>
 <script>

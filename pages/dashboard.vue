@@ -1,9 +1,9 @@
 <template>
-  <!-- <Header /> -->
   <div class="u-flex">
     <SideBar />
     <Dashboard style="flex: 1;"/>
   </div>
+  <Support/>
 </template>
 <!-- <script>
 import { account } from "~/utils/web-init";

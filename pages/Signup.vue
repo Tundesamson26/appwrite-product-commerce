@@ -66,6 +66,10 @@
             <div class="u-flex u-main-end u-gap-12">
               <button class="button" type="submit">Signup</button>
             </div>
+            <div class="" style="margin-bottom: -30px; padding-top: 10px;">
+            <span>You already have an account?</span>
+            <NuxtLink to="/signin" class="tag" style="margin-left: 5px;">Signin</NuxtLink>
+          </div>
           </div>
         </form>
       </div>
@@ -95,7 +99,7 @@ export default {
     confirmPassword: "",
   }),
   mounted() {
-    if (account.get !== null) {
+    if (account.get() !== null) {
       try {
         client.subscribe("documents", (response) => {
           console.log(response);

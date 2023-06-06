@@ -20,6 +20,7 @@
     "chart.js": "^4.3.0",
     "pdf-thumbnail": "^1.0.6",
     "pdfjs-dist": "^3.7.107",
+    "random-avatar-generator": "^2.0.0",
     "vue-chartjs": "^5.2.0"
   }
 }

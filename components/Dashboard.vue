@@ -203,7 +203,7 @@ export default {
 
     onMounted(() => {
       createAnonymousSession();
-      if (account.get !== null) {
+      if (account.get() !== null) {
         try {
           client.subscribe("documents", (response) => {
             console.log(response);

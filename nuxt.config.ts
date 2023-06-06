@@ -3,6 +3,17 @@ export default({
   buildModules: [
     '@nuxtjs/vite'
   ],
+  vite: {
+    css: {
+      postcss: false
+    }
+  },
+  runtimeConfig: {
+    public: {
+      PROJECT_ID: process.env.NUXT_PROJECT_ID,
+      API_ENDPOINT: process.env.NUXT_API_ENDPOINT,
+    },
+  },  
   router: {
     extendRoutes(routes: { path: string; component: any; }[], resolve: (arg0: string, arg1: string) => any) {
       routes.push(
@@ -29,15 +40,4 @@ export default({
       );
     }
   },
-  vite: {
-    css: {
-      postcss: false
-    }
-  },
-  runtimeConfig: {
-    public: {
-      PROJECT_ID: process.env.NUXT_PROJECT_ID,
-      API_ENDPOINT: process.env.NUXT_API_ENDPOINT,
-    },
-  },  
 })
