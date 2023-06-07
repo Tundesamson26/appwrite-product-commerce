@@ -9,14 +9,14 @@
       </div>
       <div class="flex-container" style="padding-top: 20px">
         <div class="content-text">
-          <h2 class="heading-level-1 u-margin-block-start-32">
+          <h2 class="heading-level-1 u-margin-block-start-32 content-head">
             The best way to sell digital products online
           </h2>
           <p
-            class="body-text-1 u-normal u-small u-margin-block-start-16"
+            class="body-text-1 u-normal u-small u-margin-block-start-16 context-para"
             style="padding-bottom: 10px; font-size: 18px;"
           >
-            uCanEarn is your all-in-one e-commerce store builder to sell any
+            <span class="u-bold"><span class="u-color-text-pink">uCan</span>Earn</span> is your all-in-one e-commerce store builder to sell any
             kind of digital product and service to anyone, anywhere in the
             world.
           </p>
@@ -59,6 +59,12 @@
 .content-img img {
   max-width: 75%; /* Ensure the image does not exceed its container width */
   height: auto; /* Maintain the image's aspect ratio */
+}
+@media (max-width: 767.99px), (min-width: 768px) and (max-width: 1198.99px) {
+  .context-para{
+    font-size: 15px;
+    width: auto;
+  }
 }
 </style>
 

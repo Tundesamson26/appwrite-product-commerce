@@ -22,7 +22,7 @@
         </tr>
       </thead>
       <tbody class="table-tbody">
-        <tr v-for="(product, index) in products" :key="product.$id" class="table-row">
+        <tr v-for="(product) in products" :key="product.$id" class="table-row">
           <td class="table-col" data-title="Name">
             <div class="u-inline-flex u-cross-center u-gap-12">
               <div>

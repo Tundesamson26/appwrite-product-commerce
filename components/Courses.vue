@@ -4,39 +4,47 @@
       <Header />
     </div>
     <div class="container">
-      <ul
-        class="grid-box"
-        style="
-          --grid-gap: 1rem;
-          --grid-item-size: 16rem;
-          --grid-item-size-small-screens: 8rem;
-        "
+      <div
+        class="u-font-size-32 u-normal u-line-height-1-25"
+        style="padding: 5px"
       >
-        <li v-for="course in courses" :key="course.id">
-          <div class="card">
-            <h3>{{ course.courseTitle }}</h3>
-            <div>
-              <p>{{ course.courseDesc }}</p>
-            </div>
-            <div class="file-preview">
-              <div class="thumbnail">
-                <img :src="getThumbnail(course.link)" alt="Thumbnail" />
+        Courses
+      </div>
+      <div>
+        <ul
+          class="grid-box"
+          style="
+            --grid-gap: 1rem;
+            --grid-item-size: 16rem;
+            --grid-item-size-small-screens: 8rem;
+          "
+        >
+          <li v-for="course in courses" :key="course.id">
+            <div class="card">
+              <h3>{{ course.courseTitle }}</h3>
+              <div>
+                <p>{{ course.courseDesc }}</p>
               </div>
-              <a
-                :href="course.link"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="preview-link"
-                >Open</a
-              >
-            </div>
+              <div class="file-preview">
+                <div class="thumbnail">
+                  <img :src="getThumbnail(course.link)" alt="Thumbnail" />
+                </div>
+                <a
+                  :href="course.link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="preview-link"
+                  >Open</a
+                >
+              </div>
 
-            <div>
-              <span class="tag">{{ course.coursePrice }}</span>
+              <div>
+                <span class="tag">{{ course.coursePrice }}</span>
+              </div>
             </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </section>
 </template>
@@ -87,8 +95,7 @@
 <script>
 import { databases, storage, createAnonymousSession } from "@/utils/web-init";
 import { Query } from "appwrite";
-import { PDFDocumentProxy } from 'pdfjs-dist/build/pdf';
-
+import { PDFDocumentProxy } from "pdfjs-dist/build/pdf";
 
 export default {
   name: "Course",
@@ -148,6 +155,7 @@ export default {
         console.log(error);
       }
     },
+    
     async getThumbnail(fileUrl) {
       try {
         const pdf = await PDFDocumentProxy.create(fileUrl);

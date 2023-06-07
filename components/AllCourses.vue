@@ -1,6 +1,6 @@
 <template>
   <section style="flex: 1">
-    <div style="padding-top: 20px">
+    <div style="padding-top: 10px">
       <div>
         <div class="u-text-center">
           <button
@@ -92,6 +92,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div style="padding-top: 5px;">
+      <ListCourses/>
     </div>
   </section>
 </template>
