@@ -92,7 +92,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style>
 .card {
   display: flex;
   flex-direction: column;
