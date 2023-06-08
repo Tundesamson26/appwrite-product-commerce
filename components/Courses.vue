@@ -27,7 +27,7 @@
               </div>
               <div class="file-preview">
                 <div class="thumbnail">
-                  <img :src="getThumbnail('https://cloud.appwrite.io/v1/storage/buckets/64762d12b1b5d1353c66/files/6480ea2c5bda34328826/view?project=646d59d17780d087bad2')" alt="Thumbnail" />
+                  <img :src="getThumbnail(course.link)" alt="Thumbnail" />
                 </div>
                 <a
                   :href="course.link"
