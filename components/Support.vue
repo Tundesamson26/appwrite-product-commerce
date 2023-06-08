@@ -212,3 +212,109 @@ export default {
   },
 };
 </script>
+
+<!-- <script>
+import { ref, onMounted } from "vue";
+import { AvatarGenerator } from "random-avatar-generator";
+import { databases, client, createAnonymousSession } from "@/utils/web-init";
+import { ID } from "appwrite";
+
+export default {
+  name: "Support",
+  setup() {
+    const showModal = ref(false);
+    const avatar = ref();
+    const messages = ref([]);
+    const message = ref("");
+
+    const createChatIfNotExist = async () => {
+      console.log("Adding user", message.value);
+      const newMessage = {
+        avatar: avatar.value,
+        message: message.value,
+      };
+
+      try {
+        await databases.createDocument(
+          "647f613b96571dacadf0",
+          "647f651f2bc12a78d530",
+          "general-chat",
+          {
+            messages: [...messages.value, newMessage],
+          }
+        );
+        message.value = "";
+      } catch (error) {
+        await databases.updateDocument(
+          "647f613b96571dacadf0",
+          "647f651f2bc12a78d530",
+          "general-chat",
+          {
+            messages: [...messages.value, newMessage],
+          }
+        );
+        console.log("I am unable to create", error.message); // Failure
+      }
+    };
+
+    onMounted(async () => {
+      if (!avatar.value) {
+        const storedAvatar = localStorage.getItem("avatar");
+        if (storedAvatar) {
+          avatar.value = storedAvatar;
+        } else {
+          const newAvatar = AvatarGenerator();
+          localStorage.setItem("avatar", newAvatar);
+          avatar.value = newAvatar;
+        }
+      }
+
+      const result = await databases.getDocument(
+        "647f613b96571dacadf0",
+        "647f651f2bc12a78d530",
+        "general-chat"
+      );
+      messages.value = result.messages || [];
+    });
+
+    onMounted(() => {
+      createAnonymousSession();
+      if (account.get() !== null) {
+        try {
+          client.subscribe("documents", (response) => {
+            console.log(response);
+          });
+        } catch (error) {
+          console.log(error, "error");
+        }
+      }
+    });
+
+    onMounted(() => {
+      console.log("anything");
+      // Subscribe to collection channel
+      const _subscribe = client.subscribe(
+        "databases.647f613b96571dacadf0.collections.647f651f2bc12a78d530.documents",
+        (response) => {
+          console.log("iiiii", response);
+          const { payload } = response;
+          if (payload?.$id === "general-chat") {
+            messages.value = payload.messages || [];
+          }
+        }
+      );
+      return () => {
+        _subscribe();
+      };
+    });
+
+    return {
+      showModal,
+      avatar,
+      messages,
+      message,
+      createChatIfNotExist,
+    };
+  },
+};
+</script> -->

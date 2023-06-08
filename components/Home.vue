@@ -3,7 +3,7 @@
   <section class="container u-full-screen-height" style="margin-top: 2s0px">
     <div class="content">
       <div class="content-header">
-        <h1 class="heading-level-4 u-text-center">
+        <h1 class="heading-level-4 u-text-center u-bold">
           <span class="u-color-text-pink">uCan</span>Earn
         </h1>
       </div>
