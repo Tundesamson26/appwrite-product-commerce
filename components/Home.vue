@@ -65,6 +65,9 @@
     font-size: 15px;
     width: auto;
   }
+  .content-img{
+    display: none;
+  }
 }
 </style>
 
