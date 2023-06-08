@@ -199,6 +199,7 @@ export default {
     const showModal = ref(false);
     const products = ref([]);
     const editMode = reactive({ index: null });
+    const runtimeConfig = useRuntimeConfig();
 
     const editProduct = (productId) => {
       const productIndex = products.value.findIndex((product) => product.$id === productId);
@@ -219,8 +220,8 @@ export default {
         const updatedProduct = { ...products.value[productIndex] };
         // Update the product in the database using the modified data
         await databases.updateDocument(
-          "6473b8ef7c15c4def6f0",
-          "6473b9100af3a35ca785",
+          runtimeConfig.public.PRODUCT_DATABASE_ID,
+          runtimeConfig.public.PRODUCT_COLLECTION_ID,
           productId,
           {
             productName: updatedProduct.productName,
@@ -244,8 +245,8 @@ export default {
     const getProduct = async () => {
       try {
         const response = await databases.listDocuments(
-          "6473b8ef7c15c4def6f0",
-          "6473b9100af3a35ca785"
+          runtimeConfig.public.PRODUCT_DATABASE_ID,
+          runtimeConfig.public.PRODUCT_COLLECTION_ID
         );
         const fetchedProducts = response.documents;
         console.log("Successfully retrieved products:", fetchedProducts);
@@ -260,8 +261,8 @@ export default {
     const deleteProduct = async (document_id) => {
       try {
         await databases.deleteDocument(
-          "6473b8ef7c15c4def6f0",
-          "6473b9100af3a35ca785",
+          runtimeConfig.public.PRODUCT_DATABASE_ID,
+          runtimeConfig.public.PRODUCT_COLLECTION_ID,
           document_id
         );
 

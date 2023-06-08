@@ -38,8 +38,14 @@
                 >
               </div>
 
-              <div>
-                <span class="tag">{{ course.coursePrice }}</span>
+              <div
+                class="u-flex u-main-space-between u-cross-center"
+                style="padding-top: 10px"
+              >
+                <span class="tag">${{ course.coursePrice }}</span>
+                <!-- <button class="button">
+                  <span class="text">Buy</span>
+                </button> -->
               </div>
             </div>
           </li>
@@ -93,27 +99,33 @@
 </style>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 import { databases, storage, createAnonymousSession } from "@/utils/web-init";
 import { Query } from "appwrite";
-import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist/build/pdf';
-import pdfWorker from 'pdfjs-dist/build/pdf.worker';
+import { getDocument, GlobalWorkerOptions } from "pdfjs-dist/build/pdf";
+import pdfWorker from "pdfjs-dist/build/pdf.worker";
 
 GlobalWorkerOptions.workerSrc = pdfWorker;
 
 const courses = ref([]);
+const runtimeConfig = useRuntimeConfig();
 
 const getCourses = async () => {
   try {
-    const result = await storage.listFiles("64762d12b1b5d1353c66");
+    const result = await storage.listFiles(
+      runtimeConfig.public.COURSE_BUCKET_ID
+    );
     const fileIds = result.files.map((file) => file.$id);
 
     const courseDataPromises = fileIds.map(async (fileId) => {
-      const link = storage.getFileView("64762d12b1b5d1353c66", fileId);
+      const link = storage.getFileView(
+        runtimeConfig.public.COURSE_BUCKET_ID,
+        fileId
+      );
 
       const courseData = await databases.listDocuments(
-        "64762dae57cc0e38353e",
-        "64762ea3a135828230ca",
+        runtimeConfig.public.COURSE_DB_ID,
+        runtimeConfig.public.COURSE_COLLECTION,
         [Query.equal("fileId", fileId)]
       );
 
@@ -200,5 +212,3 @@ export default {
   },
 };
 </script>
-
-
