@@ -92,11 +92,97 @@
 }
 </style>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
 import { databases, storage, createAnonymousSession } from "@/utils/web-init";
 import { Query } from "appwrite";
-import { PDFDocumentProxy } from "pdfjs-dist/build/pdf";
+import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist/build/pdf';
+import pdfWorker from 'pdfjs-dist/build/pdf.worker';
 
+GlobalWorkerOptions.workerSrc = pdfWorker;
+
+const courses = ref([]);
+
+const getCourses = async () => {
+  try {
+    const result = await storage.listFiles("64762d12b1b5d1353c66");
+    const fileIds = result.files.map((file) => file.$id);
+
+    const courseDataPromises = fileIds.map(async (fileId) => {
+      const link = storage.getFileView("64762d12b1b5d1353c66", fileId);
+
+      const courseData = await databases.listDocuments(
+        "64762dae57cc0e38353e",
+        "64762ea3a135828230ca",
+        [Query.equal("fileId", fileId)]
+      );
+
+      return {
+        id: fileId,
+        link,
+        courseTitle: courseData.documents[0].courseTitle,
+        courseDesc: courseData.documents[0].courseDesc,
+        coursePrice: courseData.documents[0].coursePrice,
+      };
+    });
+
+    const coursesData = await Promise.all(courseDataPromises);
+    courses.value = coursesData;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getThumbnail = async (fileUrl) => {
+  try {
+    const loadingTask = getDocument(fileUrl);
+    const pdf = await loadingTask.promise;
+    const thumbnailPageNum = 1; // The page number to generate the thumbnail from
+    const thumbnailScale = 0.5; // The scale factor for the thumbnail size
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+
+    const page = await pdf.getPage(thumbnailPageNum);
+    const viewport = page.getViewport({ scale: thumbnailScale });
+
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+
+    const renderContext = {
+      canvasContext: context,
+      viewport: viewport,
+    };
+
+    await page.render(renderContext).promise;
+
+    const thumbnailUrl = canvas.toDataURL();
+
+    return thumbnailUrl;
+  } catch (error) {
+    console.log(error);
+    return ""; // Return an empty string if an error occurs during thumbnail generation
+  }
+};
+
+onMounted(async () => {
+  createAnonymousSession();
+  await getCourses();
+  console.log(getCourses());
+
+  if (account.get !== null) {
+    try {
+      client.subscribe("documents", (response) => {
+        console.log(response);
+        getCourses();
+      });
+    } catch (error) {
+      console.log(error, "error");
+    }
+  }
+});
+</script>
+
+<script>
 export default {
   name: "Course",
   props: {
@@ -105,86 +191,14 @@ export default {
     courseDesc: String,
     coursePrice: String,
   },
-  data() {
+  setup() {
     return {
-      courses: [],
+      courses,
+      getCourses,
+      getThumbnail,
     };
-  },
-  mounted() {
-    createAnonymousSession();
-    this.getCourses();
-    console.log(this.getCourses());
-    if (account.get !== null) {
-      try {
-        client.subscribe("documents", (response) => {
-          console.log(response);
-          this.getCourses();
-        });
-      } catch (error) {
-        console.log(error, "error");
-      }
-    }
-  },
-  methods: {
-    async getCourses() {
-      try {
-        const result = await storage.listFiles("64762d12b1b5d1353c66");
-        const fileIds = result.files.map((file) => file.$id);
-
-        const courseDataPromises = fileIds.map(async (fileId) => {
-          const link = storage.getFileView("64762d12b1b5d1353c66", fileId);
-
-          const courseData = await databases.listDocuments(
-            "64762dae57cc0e38353e",
-            "64762ea3a135828230ca",
-            [Query.equal("fileId", fileId)]
-          );
-
-          return {
-            id: fileId,
-            link,
-            courseTitle: courseData.documents[0].courseTitle,
-            courseDesc: courseData.documents[0].courseDesc,
-            coursePrice: courseData.documents[0].coursePrice,
-          };
-        });
-
-        const courses = await Promise.all(courseDataPromises);
-        this.courses = courses;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    
-    async getThumbnail(fileUrl) {
-      try {
-        const pdf = await PDFDocumentProxy.create(fileUrl);
-        const thumbnailPageNum = 1; // The page number to generate the thumbnail from
-        const thumbnailScale = 0.5; // The scale factor for the thumbnail size
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d");
-
-        const page = await pdf.getPage(thumbnailPageNum);
-        const viewport = page.getViewport({ scale: thumbnailScale });
-
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-
-        const renderContext = {
-          canvasContext: context,
-          viewport: viewport,
-        };
-
-        await page.render(renderContext).promise;
-
-        const thumbnailUrl = canvas.toDataURL();
-
-        return thumbnailUrl;
-      } catch (error) {
-        console.log(error);
-        return ""; // Return an empty string if an error occurs during thumbnail generation
-      }
-    },
   },
 };
 </script>
+
+

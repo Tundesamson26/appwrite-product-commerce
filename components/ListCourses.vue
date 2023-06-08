@@ -6,16 +6,10 @@
           <th class="table-thead-col" style="--p-col-width: 100">
             <span class="eyebrow-heading-3">Name</span>
           </th>
-          <th
-            class="table-thead-col is-only-desktop"
-            style="--p-col-width: 200"
-          >
+          <th class="table-thead-col is-only-desktop" style="--p-col-width: 200">
             <span class="eyebrow-heading-3">Description</span>
           </th>
-          <th
-            class="table-thead-col is-only-desktop"
-            style="--p-col-width: 100"
-          >
+          <th class="table-thead-col is-only-desktop" style="--p-col-width: 100">
             <span class="eyebrow-heading-3">Price</span>
           </th>
           <th class="table-thead-col" style="--p-col-width: 30"></th>
@@ -51,28 +45,17 @@
             <div class="u-flex u-cross-center u-main-end">
               <div>
                 <!-- Edit button -->
-                <button
-                  class="button is-text is-only-icon"
-                  type="button"
-                  aria-label="more options"
-                  @click="editCourse(course.$id)"
-                >
+                <button class="button is-text is-only-icon" type="button" aria-label="more options"
+                  @click="editCourse(course.$id)">
                   <span class="icon-pencil"></span>
                 </button>
-                <div
-                  v-if="showModal && editMode && editMode.index !== null"
-                  class="modal-overlay"
-                  id="dialog"
-                >
+                <div v-if="showModal && editMode && editMode.index !== null" class="modal-overlay" id="dialog">
                   <div class="modal">
                     <form class="modal-form" method="dialog" @submit.prevent="">
                       <header class="modal-header">
                         <h4 class="modal-title heading-level-5">Course</h4>
-                        <button
-                          class="button is-text is-small is-only-icon"
-                          aria-label="Close modal"
-                          @click="showModal = false"
-                        >
+                        <button class="button is-text is-small is-only-icon" aria-label="Close modal"
+                          @click="showModal = false">
                           <span class="icon-x" aria-hidden="true"></span>
                         </button>
                       </header>
@@ -80,61 +63,39 @@
                         <li class="form-item">
                           <label class="label">Course Name</label>
                           <div class="input-text-wrapper">
-                            <input
-                              type="text"
-                              class="input-text u-padding-inline-end-56"
-                              placeholder="Product name"
-                              v-model="courses[editMode.index].courseTitle"
-                            />
+                            <input type="text" class="input-text u-padding-inline-end-56" placeholder="Product name"
+                              v-model="courses[editMode.index].courseTitle" />
                           </div>
                         </li>
                         <li class="form-item">
                           <label class="label">Course File</label>
                           <div class="input-text-wrapper">
-                            <input
-                              type="file"
-                              v-on="courses[editMode.index].fileId"
-                            />
+                            <input type="file" v-on="courses[editMode.index].fileId" />
                           </div>
                         </li>
                         <li class="form-item">
                           <label class="label">Description</label>
                           <div class="input-text-wrapper">
-                            <input
-                              type="text"
-                              class="input-text"
-                              placeholder="Product Description"
-                              v-model="courses[editMode.index].courseDesc"
-                            />
+                            <input type="text" class="input-text" placeholder="Product Description"
+                              v-model="courses[editMode.index].courseDesc" />
                           </div>
                         </li>
                         <div class="u-flex u-cross-center">
                           <li class="form-item">
                             <label class="label">Price</label>
                             <div class="input-text-wrapper">
-                              <input
-                                type="text"
-                                name="productPrice"
-                                placeholder="Price"
-                                v-model="courses[editMode.index].coursePrice"
-                              />
+                              <input type="text" name="productPrice" placeholder="Price"
+                                v-model="courses[editMode.index].coursePrice" />
                             </div>
                           </li>
                         </div>
                       </ul>
                       <div class="modal-footer">
                         <div class="u-flex u-main-end u-gap-16">
-                          <button
-                            class="button is-secondary"
-                            @click="showModal = false"
-                          >
+                          <button class="button is-secondary" @click="showModal = false">
                             <span class="text">Cancel</span>
                           </button>
-                          <button
-                            class="button"
-                            type="submit"
-                            @click.prevent="updateCourse(course.$id)"
-                          >
+                          <button class="button" type="submit" @click.prevent="updateCourse(course.$id)">
                             <span class="text">Update</span>
                           </button>
                         </div>
@@ -144,12 +105,8 @@
                 </div>
               </div>
               <!-- Delete button -->
-              <button
-                class="button is-text is-only-icon"
-                type="button"
-                aria-label="more options"
-                @click="deleteCourse(course.$id)"
-              >
+              <button class="button is-text is-only-icon" type="button" aria-label="more options"
+                @click="deleteCourse(course.$id)">
                 <span class="icon-trash" aria-hidden="true"></span>
               </button>
             </div>
@@ -192,110 +149,111 @@ import Pagination from "@/components/Pagination.vue";
 
 
 export default {
-    name: "ListCourses",
-    components: {
-        Pagination,
-    },
+  name: "ListCourses",
+  components: {
+    Pagination,
+  },
 
-    setup() {
-        const showModal = ref(false);
-        const courses = ref([]);
-        const editMode = reactive({ index: null });
+  setup() {
+    const showModal = ref(false);
+    const courses = ref([]);
+    const editMode = reactive({ index: null });
+    const runtimeConfig = useRuntimeConfig()
 
-        const editCourse = (courseId) => {
-            const courseIndex = courses.value.findIndex((course) => course.$id === courseId);
-            if (courseIndex !== -1) {
-                editMode.index = courseIndex;
-                console.log(editMode.index);
-                showModal.value = true;
-            }
-        };
+    const editCourse = (courseId) => {
+      const courseIndex = courses.value.findIndex((course) => course.$id === courseId);
+      if (courseIndex !== -1) {
+        editMode.index = courseIndex;
+        console.log(editMode.index);
+        showModal.value = true;
+      }
+    };
 
-        const updateCourse = async (courseId) => {
-            try {
-                const courseIndex = courses.value.findIndex((course) => course.$id === courseId);
-                if (courseIndex === -1) {
-                    throw new Error("Courses not found");
-                }
+    const updateCourse = async (courseId) => {
+      try {
+        const courseIndex = courses.value.findIndex((course) => course.$id === courseId);
+        if (courseIndex === -1) {
+          throw new Error("Courses not found");
+        }
 
-                const updatedCourse = { ...courses.value[coursesIndex] };
-                // Update the courses in the database using the modified data
-                await databases.updateDocument(
-                    "64762dae57cc0e38353e",
-                    "64762ea3a135828230ca",
-                    courseId,
-                    {
-                        courseTitle: updatedCourse.coursesName,
-                        fileId: updatedCourse.fileId,
-                        courseDesc: updatedCourse.courseDesc,
-                        coursePrice: updatedCourse.coursePrice,
-                        // Update other fields as needed
-                    }
-                );
+        const updatedCourse = { ...courses.value[courseIndex] };
+        // Update the courses in the database using the modified data
+        await databases.updateDocument(
+          runtimeConfig.public.COURSE_DB_ID,
+          runtimeConfig.public.COURSE_COLLECTION,
+          courseId,
+          {
+            courseTitle: updatedCourse.coursesName,
+            fileId: updatedCourse.fileId,
+            courseDesc: updatedCourse.courseDesc,
+            coursePrice: updatedCourse.coursePrice,
+            // Update other fields as needed
+          }
+        );
 
-                alert("Course has been updated successfully");
-                editMode.index = null; // Exit edit mode
-                await getCourses();
-            } catch (error) {
-                console.log("Error updating course:", error.message);
-                alert("Course was not updated");
-            }
-        };
+        alert("Course has been updated successfully");
+        editMode.index = null; // Exit edit mode
+        await getCourses();
+      } catch (error) {
+        console.log("Error updating course:", error.message);
+        alert("Course was not updated");
+      }
+    };
 
-        const getCourses = async () => {
-            try {
-                const response = await databases.listDocuments(
-                    "64762dae57cc0e38353e",
-                    "64762ea3a135828230ca"
-                );
-                const fetchedCourses = response.documents;
-                console.log("Successfully retrieved courses:", fetchedCourses);
-                courses.value = fetchedCourses;
-                return fetchedCourses;
-            } catch (error) {
-                console.log("Error retrieving courses:", error);
-                // Handle the error accordingly (e.g., display an error message)
-            }
-        };
+    const getCourses = async () => {
+      try {
+        const response = await databases.listDocuments(
+          runtimeConfig.public.COURSE_DB_ID,
+          runtimeConfig.public.COURSE_COLLECTION,
+        );
+        const fetchedCourses = response.documents;
+        console.log("Successfully retrieved courses:", fetchedCourses);
+        courses.value = fetchedCourses;
+        return fetchedCourses;
+      } catch (error) {
+        console.log("Error retrieving courses:", error);
+        // Handle the error accordingly (e.g., display an error message)
+      }
+    };
 
-        const deleteCourse = async (document_id) => {
-            try {
-                await databases.deleteDocument(
-                    "64762dae57cc0e38353e",
-                    "64762ea3a135828230ca",
-                    document_id
-                );
+    const deleteCourse = async (document_id) => {
+      try {
+        await databases.deleteDocument(
+          runtimeConfig.public.COURSE_DB_ID,
+          runtimeConfig.public.COURSE_COLLECTION,
+          document_id
+        );
 
-                alert("Item has been deleted successfully");
-                await getCourse();
-            } catch (error) {
-                console.log("Error deleting product:", error.message);
-                alert("Item was not deleted");
-            }
-        };
+        alert("Item has been deleted successfully");
+        await getCourse();
+      } catch (error) {
+        console.log("Error deleting product:", error.message);
+        alert("Item was not deleted");
+      }
+    };
 
-        onMounted(async () => {
-            await getCourses();
+    onMounted(async () => {
+      await getCourses();
 
-            if (account.get !== null) {
-                try {
-                    client.subscribe("documents", (response) => {
-                        console.log("anything", response);
-                    });
-                } catch (error) {
-                    console.log(error, "error");
-                }
-            }
-        });
+      if (account.get !== null) {
+        try {
+          client.subscribe("documents", (response) => {
+            console.log("anything", response);
+          });
+        } catch (error) {
+          console.log(error, "error");
+        }
+      }
+    });
 
-        return {
-            showModal,
-            courses,
-            editCourse,
-            deleteCourse,
-            updateCourse,
-            editMode
-        };
-    },
+    return {
+      showModal,
+      courses,
+      editCourse,
+      deleteCourse,
+      updateCourse,
+      editMode
+    };
+  },
 };
 </script>

@@ -40,9 +40,52 @@
     </div>
   </section>
 </template>
-<script>
+<script setup>
 import { account, client, databases } from "~/utils/web-init";
+import { onMounted, ref } from 'vue';
 
+const products = ref([]);
+
+const runtimeConfig = useRuntimeConfig();
+
+const createAnonymousSession = () => {
+  // Implement the createAnonymousSession function logic
+};
+
+const getProduct = async () => {
+  try {
+    const productData = await databases.listDocuments(
+      runtimeConfig.public.PRODUCT_DATABASE_ID,
+      runtimeConfig.public.PRODUCT_COLLECTION_ID
+    );
+    console.log(productData);
+    products.value = productData;
+    console.log("Successfully retrieved products:", productData);
+  } catch (error) {
+    console.log("Error retrieving products:", error);
+    // Handle the error accordingly (e.g., display an error message)
+  }
+};
+
+onMounted(() => {
+  createAnonymousSession();
+  getProduct();
+
+  if (account && account.get() !== null) {
+    try {
+      client.subscribe("documents", async (response) => {
+        console.log("Received real-time update:", response);
+        await getProduct();
+        console.log("Updated products:", products.value);
+      });
+    } catch (error) {
+      console.log(error, "error");
+    }
+  }
+});
+</script>
+
+<script>
 export default {
   name: "products",
   props: {
@@ -52,43 +95,10 @@ export default {
     productPrice: Number,
     productSize: String,
   },
-
-  data() {
+  setup() {
     return {
-      products: [],
+      products,
     };
-  },
-  mounted() {
-    createAnonymousSession();
-    this.getProduct();
-
-    if (account && account.get() !== null) {
-      try {
-        client.subscribe("documents", async (response) => {
-          console.log("Received real-time update:", response);
-          await this.getProduct();
-          console.log("Updated products:", this.products);
-        });
-      } catch (error) {
-        console.log(error, "error");
-      }
-    }
-  },
-  methods: {
-    async getProduct() {
-      try {
-        const productData = await databases.listDocuments(
-          "6473b8ef7c15c4def6f0",
-          "6473b9100af3a35ca785"
-        );
-        console.log(productData);
-        this.products = productData;
-        console.log("Successfully retrieved products:", productData);
-      } catch (error) {
-        console.log("Error retrieving products:", error);
-        // Handle the error accordingly (e.g., display an error message)
-      }
-    },
   },
 };
 </script>
