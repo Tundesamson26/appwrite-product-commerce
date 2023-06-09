@@ -118,19 +118,20 @@ export default {
     const fileId = ref("");
     const courseDesc = ref("");
     const coursePrice = ref("");
+    const runtimeConfig = useRuntimeConfig();
 
     const uploadCourse = async (e) => {
       e.preventDefault();
       try {
         const file = await storage.createFile(
-          "64762d12b1b5d1353c66",
+          runtimeConfig.public.COURSE_BUCKET_ID,
           ID.unique(),
           document.getElementById("fileId").files[0]
         );
 
         await databases.createDocument(
-          "64762dae57cc0e38353e",
-          "64762ea3a135828230ca",
+          runtimeConfig.public.COURSE_DB_ID,
+          runtimeConfig.public.COURSE_COLLECTION,
           ID.unique(),
           {
             fileId: file.$id,
