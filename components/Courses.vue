@@ -21,8 +21,8 @@
         >
           <li v-for="course in courses" :key="course.id">
             <div class="card">
-              <h3>{{ course.courseTitle }}</h3>
-              <div>
+              <h3 class="u-bold">{{ course.courseTitle }}</h3>
+              <div style="padding: 5px; margin-bottom: 10px;">
                 <p>{{ course.courseDesc }}</p>
               </div>
               <div class="file-preview">

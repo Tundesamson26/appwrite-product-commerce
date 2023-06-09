@@ -1,67 +1,102 @@
 <template>
   <section class="sidebar-wrapper">
-    <button class="menu-button" @click="toggleSidebar" style="background-color: var(--color-neutral-0);">
-        <span class="icon-menu" style="font-size: 30px;"></span>
-      </button>
-      <div class="side-nav sidebar" :class="{ 'sidebar-open': isSidebarOpen }">
-        <Profile />
-        <div class="side-nav-main">
-          <section class="drop-section">
-            <ul class="drop-list">
-              <li class="drop-list-item">
-                <nuxt-link to="/dashboard" class="drop-button" exact>
-                  <span class="icon-home" aria-hidden="true"></span>
-                  <span class="text">Dashboard</span>
-                </nuxt-link>
-              </li>
-              <li class="drop-list-item">
-                <nuxt-link to="/wallet" class="drop-button">
-                  <span class="icon-document" aria-hidden="true"></span>
-                  <span class="text">Wallet</span>
-                </nuxt-link>
-              </li>
-              <li class="drop-list-item">
-                <nuxt-link to="/products" class="drop-button">
-                  <span class="icon-user-group" aria-hidden="true"></span>
-                  <span class="text">All Products</span>
-                </nuxt-link>
-              </li>
-              <li class="drop-list-item">
-                <nuxt-link to="/courses" class="drop-button">
-                  <span class="icon-briefcase" aria-hidden="true"></span>
-                  <span class="text">Courses</span>
-                </nuxt-link>
-              </li>
-              <li class="drop-list-item">
-                <nuxt-link to="/sales" class="drop-button">
-                  <span class="icon-chart-bar" aria-hidden="true"></span>
-                  <span class="text">Sales</span>
-                </nuxt-link>
-              </li>
-            </ul>
-          </section>
-        </div>
-        <div class="side-nav-bottom" style="padding-top: 30px">
-          <section class="drop-section">
-            <NuxtLink class="drop-button" to="/">
-              <span class="icon-logout-left" aria-hidden="true"></span>
-              <span class="text">Logout</span>
-            </NuxtLink>
-          </section>
-        </div>
+    <button
+      class="menu-button"
+      @click="toggleSidebar"
+      style="background-color: var(--color-neutral-0)"
+    >
+      <span class="icon-menu" style="font-size: 30px"></span>
+    </button>
+    <div class="side-nav sidebar" :class="{ 'sidebar-open': isSidebarOpen }">
+      <Profile />
+      <div class="side-nav-main">
+        <section class="drop-section">
+          <ul class="drop-list">
+            <li class="drop-list-item">
+              <nuxt-link to="/dashboard" class="drop-button" exact>
+                <span class="icon-home" aria-hidden="true"></span>
+                <span class="text">Dashboard</span>
+              </nuxt-link>
+            </li>
+            <li class="drop-list-item">
+              <nuxt-link to="/wallet" class="drop-button">
+                <span class="icon-document" aria-hidden="true"></span>
+                <span class="text">Wallet</span>
+              </nuxt-link>
+            </li>
+            <li class="drop-list-item">
+              <nuxt-link to="/products" class="drop-button">
+                <span class="icon-user-group" aria-hidden="true"></span>
+                <span class="text">All Products</span>
+              </nuxt-link>
+            </li>
+            <li class="drop-list-item">
+              <nuxt-link to="/courses" class="drop-button">
+                <span class="icon-briefcase" aria-hidden="true"></span>
+                <span class="text">Courses</span>
+              </nuxt-link>
+            </li>
+            <li class="drop-list-item">
+              <nuxt-link to="/sales" class="drop-button">
+                <span class="icon-chart-bar" aria-hidden="true"></span>
+                <span class="text">Sales</span>
+              </nuxt-link>
+            </li>
+          </ul>
+        </section>
       </div>
+      <div class="side-nav-bottom" style="padding-top: 30px">
+        <section class="drop-section">
+          <button class="drop-button" @click="logOut" type="button">
+            <span class="icon-logout-left" aria-hidden="true"></span>
+            <span class="text">Logout</span>
+          </button>
+        </section>
+      </div>
+    </div>
   </section>
 </template>
 <script>
+import { account, client } from "~/utils/web-init";
+
+account.createAnonymousSession().then(
+  (response) => {
+    console.log(response);
+  },
+  (error) => {
+    console.log(error);
+  }
+);
 export default {
   data() {
     return {
       isSidebarOpen: false,
     };
   },
+  mounted() {
+    if (account.get() !== null) {
+      try {
+        client.subscribe("documents", (response) => {
+          console.log(response);
+        });
+      } catch (error) {
+        console.log(error, "error");
+      }
+    }
+  },
   methods: {
     toggleSidebar() {
       this.isSidebarOpen = !this.isSidebarOpen;
+    },
+    logOut: async () => {
+      try {
+        await account.deleteSession("current");
+        window.location.href = "/";
+        alert("See ya later 🎉");
+      } catch (err) {
+        console.error(err);
+        alert("Encountered an error 😪");
+      }
     },
   },
 };

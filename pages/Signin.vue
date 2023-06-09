@@ -49,7 +49,7 @@
 
         <div class="form-footer">
           <div class="u-flex u-main-end u-gap-12">
-            <button class="button" type="submit" @click="updateData">
+            <button class="button" type="submit" @click="signIn">
               Login
             </button>
           </div>

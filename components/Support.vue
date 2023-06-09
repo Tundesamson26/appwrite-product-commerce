@@ -233,7 +233,6 @@ export default {
         avatar: avatar.value,
         message: message.value,
       };
-
       try {
         await databases.createDocument(
           "647f613b96571dacadf0",
