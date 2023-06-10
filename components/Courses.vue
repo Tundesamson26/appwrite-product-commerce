@@ -22,12 +22,12 @@
           <li v-for="course in courses" :key="course.id">
             <div class="card">
               <h3 class="u-bold">{{ course.courseTitle }}</h3>
-              <div style="padding: 5px; margin-bottom: 10px;">
+              <div style="padding: 5px; margin-bottom: 10px">
                 <p>{{ course.courseDesc }}</p>
               </div>
               <div class="file-preview">
                 <div class="thumbnail">
-                  <img :src="getThumbnail(course.link)" alt="Thumbnail" />
+                  <img :src="getThumbnailUrl(course.link)" alt="Thumbnail" />
                 </div>
                 <a
                   :href="course.link"
@@ -100,15 +100,20 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { databases, storage, createAnonymousSession } from "@/utils/web-init";
-import { Query } from "appwrite";
-import { getDocument, GlobalWorkerOptions } from "pdfjs-dist/build/pdf";
-import pdfWorker from "pdfjs-dist/build/pdf.worker";
-
-GlobalWorkerOptions.workerSrc = pdfWorker;
+import { createAnonymousSession } from "@/utils/web-init";
+import { getDocument } from "pdfjs-dist";
+import { Client, Account, Databases, Storage, Query } from "appwrite";
 
 const courses = ref([]);
 const runtimeConfig = useRuntimeConfig();
+const client = new Client();
+const account = new Account(client);
+const databases = new Databases(client);
+const storage = new Storage(client);
+
+client
+  .setEndpoint(runtimeConfig.public.API_ENDPOINT)
+  .setProject(runtimeConfig.public.PROJECT_ID);
 
 const getCourses = async () => {
   try {
@@ -123,6 +128,8 @@ const getCourses = async () => {
         fileId
       );
 
+      const thumbnailUrl = await getThumbnailUrl(link);
+
       const courseData = await databases.listDocuments(
         runtimeConfig.public.COURSE_DB_ID,
         runtimeConfig.public.COURSE_COLLECTION,
@@ -135,6 +142,7 @@ const getCourses = async () => {
         courseTitle: courseData.documents[0].courseTitle,
         courseDesc: courseData.documents[0].courseDesc,
         coursePrice: courseData.documents[0].coursePrice,
+        thumbnailUrl: thumbnailUrl,
       };
     });
 
@@ -145,9 +153,9 @@ const getCourses = async () => {
   }
 };
 
-const getThumbnail = async (fileUrl) => {
+const getThumbnailUrl = async (fileUrl) => {
   try {
-    const loadingTask = getDocument(fileUrl);
+    const loadingTask = getDocument({ url: fileUrl, worker: '/pdf.worker.js' });
     const pdf = await loadingTask.promise;
     const thumbnailPageNum = 1; // The page number to generate the thumbnail from
     const thumbnailScale = 0.5; // The scale factor for the thumbnail size
@@ -171,16 +179,13 @@ const getThumbnail = async (fileUrl) => {
 
     return thumbnailUrl;
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     return ""; // Return an empty string if an error occurs during thumbnail generation
   }
 };
 
 onMounted(async () => {
   createAnonymousSession();
-  await getCourses();
-  console.log(getCourses());
-
   if (account.get !== null) {
     try {
       client.subscribe("documents", (response) => {
@@ -191,6 +196,10 @@ onMounted(async () => {
       console.log(error, "error");
     }
   }
+});
+onMounted(async () => {
+  await getCourses();
+  console.log(getCourses());
 });
 </script>
 
@@ -207,8 +216,73 @@ export default {
     return {
       courses,
       getCourses,
-      getThumbnail,
+      getThumbnailUrl,
     };
   },
 };
 </script>
+<!-- <template>
+  <div class="file-preview">
+    <div class="thumbnail">
+      <img :src="getThumbnailUrl(course.link)" alt="Thumbnail" />
+    </div>
+    <a
+      :href="course.link"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="preview-link"
+      >Open</a
+    >
+  </div>
+</template> -->
+
+<!-- <script>
+import { ref, onMounted } from "vue";
+import { getDocument } from "pdfjs-dist";
+
+export default {
+  setup() {
+    const courses = ref([]);
+
+    const getCourses = async () => {
+      try {
+        // Your existing code to fetch course data
+
+        const courseDataPromises = fileIds.map(async (fileId) => {
+          const link = storage.getFileView(
+            runtimeConfig.public.COURSE_BUCKET_ID,
+            fileId
+          );
+
+          const thumbnailUrl = await getThumbnailUrl(link);
+
+          // Rest of your code to populate the courseData object
+
+          return {
+            id: fileId,
+            link,
+            courseTitle: courseData.documents[0].courseTitle,
+            courseDesc: courseData.documents[0].courseDesc,
+            coursePrice: courseData.documents[0].coursePrice,
+            thumbnailUrl: thumbnailUrl,
+          };
+        });
+
+        const coursesData = await Promise.all(courseDataPromises);
+        courses.value = coursesData;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    onMounted(() => {
+      getCourses();
+    });
+
+    return {
+      courses,
+      getThumbnailUrl,
+    };
+  },
+};
+</script> -->

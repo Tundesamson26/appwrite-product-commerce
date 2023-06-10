@@ -144,9 +144,8 @@
 import { reactive, ref, onMounted } from "vue";
 import "@appwrite.io/pink";
 import "@appwrite.io/pink-icons";
-import { client, account, databases } from "@/utils/web-init";
 import Pagination from "@/components/Pagination.vue";
-
+import { Client, Account, Databases, Storage } from "appwrite";
 
 export default {
   name: "ListCourses",
@@ -159,6 +158,14 @@ export default {
     const courses = ref([]);
     const editMode = reactive({ index: null });
     const runtimeConfig = useRuntimeConfig()
+    const client = new Client();
+    const account = new Account(client);
+    const databases = new Databases(client);
+    const storage = new Storage(client);
+
+    client
+      .setEndpoint(runtimeConfig.public.API_ENDPOINT)
+      .setProject(runtimeConfig.public.PROJECT_ID);
 
     const editCourse = (courseId) => {
       const courseIndex = courses.value.findIndex((course) => course.$id === courseId);
@@ -218,6 +225,18 @@ export default {
 
     const deleteCourse = async (document_id) => {
       try {
+        const document = await databases.getDocument(
+          runtimeConfig.public.COURSE_DB_ID,
+          runtimeConfig.public.COURSE_COLLECTION,
+          document_id
+        );
+
+        const fileId = document.fileId;
+
+        // Delete the file from storage
+        await storage.deleteFile(runtimeConfig.public.COURSE_BUCKET_ID, fileId);
+
+        // Delete the document from the database
         await databases.deleteDocument(
           runtimeConfig.public.COURSE_DB_ID,
           runtimeConfig.public.COURSE_COLLECTION,
@@ -225,12 +244,13 @@ export default {
         );
 
         alert("Item has been deleted successfully");
-        await getCourse();
+        await getCourses();
       } catch (error) {
         console.log("Error deleting product:", error.message);
         alert("Item was not deleted");
       }
     };
+
 
     onMounted(async () => {
       await getCourses();

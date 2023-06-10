@@ -3,27 +3,17 @@
     <div style="padding-top: 10px">
       <div>
         <div class="u-text-center">
-          <button
-            class="button u-margin-inline-auto u-margin-block-start-24"
-            @click="showModal = true"
-          >
+          <button class="button u-margin-inline-auto u-margin-block-start-24" @click="showModal = true">
             <span className="icon-plus-sm" aria-hidden="true"></span>
             <span class="text">Add course</span>
           </button>
           <div v-if="showModal" class="modal-overlay" id="dialog">
             <div class="modal">
-              <form
-                class="modal-form"
-                method="dialog"
-                @submit.prevent="uploadCourse"
-              >
+              <form class="modal-form" method="dialog" @submit.prevent="uploadCourse">
                 <header class="modal-header">
                   <h4 class="modal-title heading-level-5">Course</h4>
-                  <button
-                    class="button is-text is-small is-only-icon"
-                    aria-label="Close modal"
-                    @click="showModal = false"
-                  >
+                  <button class="button is-text is-small is-only-icon" aria-label="Close modal"
+                    @click="showModal = false">
                     <span class="icon-x" aria-hidden="true"></span>
                   </button>
                 </header>
@@ -31,55 +21,32 @@
                   <li class="form-item">
                     <label class="label">Title</label>
                     <div class="input-text-wrapper">
-                      <input
-                        type="text"
-                        class="input-text u-padding-inline-end-56"
-                        placeholder="Course Title"
-                        v-model="courseTitle"
-                      />
+                      <input type="text" class="input-text u-padding-inline-end-56" placeholder="Course Title"
+                        v-model="courseTitle" />
                     </div>
                   </li>
                   <li class="form-item">
                     <label class="label">File</label>
                     <div class="input-text-wrapper">
-                      <input
-                        type="file"
-                        name="file"
-                        id="fileId"
-                        size="1"
-                        v-on="fileId"
-                      />
+                      <input type="file" name="file" id="fileId" size="1" v-on="fileId" />
                     </div>
                   </li>
                   <li class="form-item">
                     <label class="label">Description</label>
                     <div class="input-text-wrapper">
-                      <input
-                        type="text"
-                        class="input-text"
-                        placeholder="Course Description"
-                        v-model="courseDesc"
-                      />
+                      <input type="text" class="input-text" placeholder="Course Description" v-model="courseDesc" />
                     </div>
                   </li>
                   <li class="form-item">
                     <label class="label">Price</label>
                     <div class="input-text-wrapper">
-                      <input
-                        type="text"
-                        name="productPrice"
-                        placeholder="Price"
-                        v-model="coursePrice"
-                      />
+                      <input type="text" name="productPrice" placeholder="Price" v-model="coursePrice" />
                     </div>
                   </li>
                 </ul>
                 <div class="modal-footer">
                   <div class="u-flex u-main-end u-gap-16">
-                    <button
-                      class="button is-secondary"
-                      @click="showModal = false"
-                    >
+                    <button class="button is-secondary" @click="showModal = false">
                       <span class="text">Cancel</span>
                     </button>
                     <button class="button" type="submit">
@@ -94,22 +61,16 @@
       </div>
     </div>
     <div style="padding-top: 5px;">
-      <ListCourses/>
+      <ListCourses />
     </div>
   </section>
 </template>
 <script >
 import { ref, onMounted } from "vue";
-import {
-  createAnonymousSession,
-  databases,
-  storage,
-  account,
-  client,
-} from "@/utils/web-init";
+import { createAnonymousSession } from "@/utils/web-init";
 import "@appwrite.io/pink";
 import "@appwrite.io/pink-icons";
-import { ID } from "appwrite";
+import { Client, Account, Databases, Storage, ID } from "appwrite";
 
 export default {
   setup() {
@@ -119,6 +80,14 @@ export default {
     const courseDesc = ref("");
     const coursePrice = ref("");
     const runtimeConfig = useRuntimeConfig();
+    const client = new Client();
+    const account = new Account(client);
+    const databases = new Databases(client);
+    const storage = new Storage(client);
+
+    client
+      .setEndpoint(runtimeConfig.public.API_ENDPOINT)
+      .setProject(runtimeConfig.public.PROJECT_ID);
 
     const uploadCourse = async (e) => {
       e.preventDefault();
@@ -144,16 +113,16 @@ export default {
         courseDesc.value = "";
         fileId.value = "";
         coursePrice.value = "";
-        alert("Product saved successfully");
+        alert("Course saved successfully");
       } catch (error) {
         console.log(error);
-        alert("Product not saved");
+        alert("Course not saved");
       }
     };
 
     onMounted(() => {
       createAnonymousSession();
-      if (account.get !== null) {
+      if (account.get() !== null) {
         try {
           client.subscribe("documents", (response) => {
             console.log(response);

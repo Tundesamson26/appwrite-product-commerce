@@ -41,15 +41,26 @@
   </section>
 </template>
 <script setup>
-import { account, client, databases } from "~/utils/web-init";
 import { onMounted, ref } from 'vue';
+import { Client, Account, Databases } from "appwrite";
 
 const products = ref([]);
-
 const runtimeConfig = useRuntimeConfig();
+const client = new Client();
+const account = new Account(client);
+const databases = new Databases(client);
 
-const createAnonymousSession = () => {
+client
+  .setEndpoint(runtimeConfig.public.API_ENDPOINT)
+  .setProject(runtimeConfig.public.PROJECT_ID);
+
+const createAnonymousSession = async() => {
   // Implement the createAnonymousSession function logic
+  try {
+    await account.createAnonymousSession();
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const getProduct = async () => {

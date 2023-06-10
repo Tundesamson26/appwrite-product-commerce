@@ -141,7 +141,7 @@
 
       <!-- recent transactions starts here -->
       <div class="u-padding-block-end-56">
-        <div class="container">
+        <div class="">
           <div class="recent-transactions" style="padding-top: 25px">
             <h1>Recent Transactions</h1>
           </div>

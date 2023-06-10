@@ -22,13 +22,13 @@
         </tr>
       </thead>
       <tbody class="table-tbody">
-        <tr v-for="(product) in products" :key="product.$id" class="table-row">
+        <tr v-for="product in products" :key="product.$id" class="table-row">
           <td class="table-col" data-title="Name">
             <div class="u-inline-flex u-cross-center u-gap-12">
               <div>
                 <!-- Display product name -->
                 <span class="text u-break-word u-line-height-1-5">
-                   {{ product.productName }}
+                  {{ product.productName }}
                 </span>
               </div>
             </div>
@@ -186,9 +186,8 @@
 import { reactive, ref, onMounted } from "vue";
 import "@appwrite.io/pink";
 import "@appwrite.io/pink-icons";
-import { client, account, databases } from "@/utils/web-init";
 import Pagination from "@/components/Pagination.vue";
-
+import { Client, Account, Databases } from "appwrite";
 
 export default {
   components: {
@@ -200,6 +199,13 @@ export default {
     const products = ref([]);
     const editMode = reactive({ index: null });
     const runtimeConfig = useRuntimeConfig();
+    const client = new Client();
+    const account = new Account(client);
+    const databases = new Databases(client);
+
+    client
+      .setEndpoint(runtimeConfig.public.API_ENDPOINT)
+      .setProject(runtimeConfig.public.PROJECT_ID);
 
     const editProduct = (productId) => {
       const productIndex = products.value.findIndex((product) => product.$id === productId);

@@ -111,6 +111,7 @@ export default {
 }
 
 .sidebar {
+  position: fixed;
   flex: 0 0 auto;
   width: 250px;
   flex: 1; /* Allow the sidebar to expand to fill the available height */
