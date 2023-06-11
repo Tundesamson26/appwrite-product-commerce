@@ -65,6 +65,8 @@
 <script lang="js">
 import { ref, onMounted } from "vue";
 import { Client, Account, Databases, Storage, ID } from "appwrite";
+import "@appwrite.io/pink"; // optionally, add icons 
+import "@appwrite.io/pink-icons";
 
 export default {
   setup() {

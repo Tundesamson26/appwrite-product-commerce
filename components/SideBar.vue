@@ -60,6 +60,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { Client, Account } from "appwrite";
+import "@appwrite.io/pink"; // optionally, add icons 
+import "@appwrite.io/pink-icons";
 
 const client = new Client();
 const account = new Account(client);

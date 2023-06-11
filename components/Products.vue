@@ -43,6 +43,8 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { Client, Account, Databases } from "appwrite";
+import "@appwrite.io/pink"; // optionally, add icons 
+import "@appwrite.io/pink-icons";
 
 const products = ref([]);
 const runtimeConfig = useRuntimeConfig();

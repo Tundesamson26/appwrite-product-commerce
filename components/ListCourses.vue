@@ -144,6 +144,8 @@
 import { reactive, ref, onMounted } from "vue";
 import Pagination from "@/components/Pagination.vue";
 import { Client, Account, Databases, Storage } from "appwrite";
+import "@appwrite.io/pink"; // optionally, add icons 
+import "@appwrite.io/pink-icons";
 
 export default {
   name: "ListCourses",

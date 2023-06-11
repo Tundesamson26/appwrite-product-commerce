@@ -93,6 +93,8 @@
 import { ref, onMounted } from "vue";
 import { AvatarGenerator } from "random-avatar-generator";
 import { Client, Account, Databases } from "appwrite";
+import "@appwrite.io/pink"; // optionally, add icons 
+import "@appwrite.io/pink-icons";
 
 export default {
   name: "Support",

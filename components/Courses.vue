@@ -101,6 +101,8 @@
 <script setup>
 import { ref, onMounted } from "vue";
 // import { getDocument } from "pdfjs-dist";
+import "@appwrite.io/pink"; // optionally, add icons 
+import "@appwrite.io/pink-icons";
 import { Client, Account, Databases, Storage, Query } from "appwrite";
 
 const courses = ref([]);
