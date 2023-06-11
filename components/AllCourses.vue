@@ -67,9 +67,6 @@
 </template>
 <script >
 import { ref, onMounted } from "vue";
-import { createAnonymousSession } from "@/utils/web-init";
-import "@appwrite.io/pink";
-import "@appwrite.io/pink-icons";
 import { Client, Account, Databases, Storage, ID } from "appwrite";
 
 export default {
@@ -121,7 +118,6 @@ export default {
     };
 
     onMounted(() => {
-      createAnonymousSession();
       if (account.get() !== null) {
         try {
           client.subscribe("documents", (response) => {

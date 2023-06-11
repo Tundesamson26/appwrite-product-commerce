@@ -54,15 +54,6 @@ client
   .setEndpoint(runtimeConfig.public.API_ENDPOINT)
   .setProject(runtimeConfig.public.PROJECT_ID);
 
-const createAnonymousSession = async() => {
-  // Implement the createAnonymousSession function logic
-  try {
-    await account.createAnonymousSession();
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 const getProduct = async () => {
   try {
     const productData = await databases.listDocuments(
@@ -79,9 +70,7 @@ const getProduct = async () => {
 };
 
 onMounted(() => {
-  createAnonymousSession();
   getProduct();
-
   if (account && account.get() !== null) {
     try {
       client.subscribe("documents", async (response) => {
@@ -113,6 +102,7 @@ export default {
   },
 };
 </script>
+
 <style>
 .card {
   display: flex;

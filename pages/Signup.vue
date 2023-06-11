@@ -77,61 +77,53 @@
   </section>
 </template>
 
-<script lang="ts">
-import "@appwrite.io/pink";
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import { Client, Account } from "appwrite";
+import "@appwrite.io/pink"; // optionally, add icons 
 import "@appwrite.io/pink-icons";
-import { account, client } from "~/utils/web-init";
 
-// account.createAnonymousSession().then(
-//   (response) => {
-//     console.log(response);
-//   },
-//   (error) => {
-//     console.log(error);
-//   }
-// );
+const client = new Client();
+const account = new Account(client);
+const runtimeConfig = useRuntimeConfig();
 
-export default {
-  data: () => ({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  }),
-  mounted() {
-    if (account.get() !== null) {
-      try {
-        client.subscribe("documents", (response) => {
-          console.log(response);
-        });
-      } catch (error) {
-        console.log(error, "error");
-      }
+
+client
+  .setEndpoint(runtimeConfig.public.API_ENDPOINT)
+  .setProject(runtimeConfig.public.PROJECT_ID);
+
+const name = ref('');
+const email = ref('');
+const password = ref('');
+const confirmPassword = ref('');
+
+onMounted(() => {
+  if (account.get() !== null) {
+    try {
+      client.subscribe('documents', (response) => {
+        console.log(response);
+      });
+    } catch (error) {
+      console.log(error, 'error');
     }
-  },
-  methods: {
-    signUp: async function () {
-      if (this.password.length >= 8) {
-        if (this.password === this.confirmPassword) {
-          try {
-            await account.create(
-              "unique()",
-              this.email,
-              this.password,
-              this.name
-            );
-            alert("account created successfully");
-            window.location.href = "/signin";
-          } catch (e) {
-            console.log(e);
-          }
-        } else {
-          alert("password do not match");
-        }
-      } else {
-        alert("password length should be up to 8 characters");
+  }
+});
+
+const signUp = async () => {
+  if (password.value.length >= 8) {
+    if (password.value === confirmPassword.value) {
+      try {
+        await account.create('unique()', email.value, password.value, name.value);
+        alert('Account created successfully');
+        window.location.href = '/signin';
+      } catch (e) {
+        console.log(e);
       }
-    },
-  },
+    } else {
+      alert('Passwords do not match');
+    }
+  } else {
+    alert('Password length should be at least 8 characters');
+  }
 };
 </script>

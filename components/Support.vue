@@ -1,10 +1,7 @@
 <template>
   <section class="support-wrapper">
     <div class="u-text-center">
-      <button
-        class="button u-margin-inline-auto u-margin-block-start-24"
-        @click="showModal = true"
-      >
+      <button class="button u-margin-inline-auto u-margin-block-start-24" @click="showModal = true">
         <span class="icon-annotation"></span>
       </button>
       <div v-if="showModal" class="modal-overlay" id="dialog">
@@ -12,11 +9,7 @@
           <form class="modal-form" method="dialog">
             <header class="modal-header">
               <h4 class="modal-title heading-level-5">Support</h4>
-              <button
-                class="button is-text is-small is-only-icon"
-                aria-label="Close modal"
-                @click="showModal = false"
-              >
+              <button class="button is-text is-small is-only-icon" aria-label="Close modal" @click="showModal = false">
                 <span class="icon-x" aria-hidden="true"></span>
               </button>
             </header>
@@ -27,9 +20,7 @@
 
               <ul class="u-padding-24" style="min-height: 300px">
                 <li v-for="message in messages" class="message" :key="message">
-                  <div
-                    class="message_wrapper u-flex u-cross-center u-cross-child-start u-column-gap-4"
-                  >
+                  <div class="message_wrapper u-flex u-cross-center u-cross-child-start u-column-gap-4">
                     <div class="">
                       <img :src="avatar" alt="avatar" width="25" height="25" />
                     </div>
@@ -41,19 +32,10 @@
               <div>
                 <div class="u-flex" style="max-width: 400px">
                   <div class="input">
-                    <input
-                      id="message-text-field"
-                      class="u-max-width-500"
-                      type="text"
-                      placeholder="Type your message here..."
-                      v-model="message"
-                    />
+                    <input id="message-text-field" class="u-max-width-500" type="text"
+                      placeholder="Type your message here..." v-model="message" />
                   </div>
-                  <button
-                    type="submit"
-                    class="button"
-                    @click.prevent="createChatIfNotExist"
-                  >
+                  <button type="submit" class="button" @click.prevent="createChatIfNotExist">
                     Send
                   </button>
                 </div>
@@ -93,7 +75,8 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 998; /* Lower z-index than the support button */
+  z-index: 998;
+  /* Lower z-index than the support button */
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -103,22 +86,13 @@
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  margin-bottom: 40px; /* Adjust the margin as needed */
+  margin-bottom: 40px;
 }
 </style>
 <script>
 import { ref, onMounted } from "vue";
-// import { generateUsername } from 'unique-username-generator';
 import { AvatarGenerator } from "random-avatar-generator";
-import {
-  createAnonymousSession,
-  databases,
-  account,
-  client,
-} from "@/utils/web-init";
-import "@appwrite.io/pink";
-import "@appwrite.io/pink-icons";
-import { ID } from "appwrite";
+import { Client, Account, Databases } from "appwrite";
 
 export default {
   name: "Support",
@@ -127,13 +101,22 @@ export default {
     const avatar = ref();
     const messages = ref([]);
     const message = ref("");
+    const client = new Client();
+    const account = new Account(client);
+    const databases = new Databases(client);
+    const runtimeConfig = useRuntimeConfig();
+
+
+    client
+      .setEndpoint(runtimeConfig.public.API_ENDPOINT)
+      .setProject(runtimeConfig.public.PROJECT_ID);
 
     const createChatIfNotExist = async () => {
       console.log("Adding user", message.value);
       try {
         await databases.createDocument(
-          "647f613b96571dacadf0",
-          "647f651f2bc12a78d530",
+          runtimeConfig.public.SUPPORT_DATABASE_ID,
+          runtimeConfig.public.SUPPORT_COLLECTION_ID,
           "general-chat",
           {
             avatar: avatar.value,
@@ -143,8 +126,8 @@ export default {
         message.value = "";
       } catch (error) {
         await databases.updateDocument(
-          "647f613b96571dacadf0",
-          "647f651f2bc12a78d530",
+          runtimeConfig.public.SUPPORT_DATABASE_ID,
+          runtimeConfig.public.SUPPORT_COLLECTION_ID,
           "general-chat",
           {
             avatar: avatar.value,
@@ -164,8 +147,8 @@ export default {
       }
 
       const result = await databases.getDocument(
-        "647f613b96571dacadf0",
-        "647f651f2bc12a78d530",
+        runtimeConfig.public.SUPPORT_DATABASE_ID,
+          runtimeConfig.public.SUPPORT_COLLECTION_ID,
         "general-chat"
       );
       messages.value = result.messages;
@@ -190,7 +173,6 @@ export default {
     });
 
     onMounted(() => {
-      createAnonymousSession();
       if (account.get() !== null) {
         try {
           client.subscribe("documents", (response) => {

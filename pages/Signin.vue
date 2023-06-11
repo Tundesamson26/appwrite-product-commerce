@@ -64,18 +64,9 @@
 </template>
 
 <script>
-import "@appwrite.io/pink";
-import "@appwrite.io/pink-icons";
 import { account, client } from "~/utils/web-init";
-
-// account.createAnonymousSession().then(
-//   (response) => {
-//     console.log(response);
-//   },
-//   (error) => {
-//     console.log(error);
-//   }
-// );
+import "@appwrite.io/pink"; // optionally, add icons 
+import "@appwrite.io/pink-icons";
 
 export default {
   data() {

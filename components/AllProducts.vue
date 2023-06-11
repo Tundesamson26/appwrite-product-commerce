@@ -184,8 +184,6 @@
 
 <script lang="js">
 import { reactive, ref, onMounted } from "vue";
-import "@appwrite.io/pink";
-import "@appwrite.io/pink-icons";
 import Pagination from "@/components/Pagination.vue";
 import { Client, Account, Databases } from "appwrite";
 
@@ -282,7 +280,6 @@ export default {
 
     onMounted(async () => {
       await getProduct();
-
       if (account.get !== null) {
         try {
           client.subscribe("documents", (response) => {

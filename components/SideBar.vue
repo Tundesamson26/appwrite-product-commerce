@@ -56,51 +56,50 @@
     </div>
   </section>
 </template>
-<script>
-import { account, client } from "~/utils/web-init";
 
-account.createAnonymousSession().then(
-  (response) => {
-    console.log(response);
-  },
-  (error) => {
-    console.log(error);
-  }
-);
-export default {
-  data() {
-    return {
-      isSidebarOpen: false,
-    };
-  },
-  mounted() {
-    if (account.get() !== null) {
-      try {
-        client.subscribe("documents", (response) => {
-          console.log(response);
-        });
-      } catch (error) {
-        console.log(error, "error");
-      }
+<script setup>
+import { ref, onMounted } from 'vue';
+import { Client, Account } from "appwrite";
+
+const client = new Client();
+const account = new Account(client);
+const runtimeConfig = useRuntimeConfig();
+
+
+client
+  .setEndpoint(runtimeConfig.public.API_ENDPOINT)
+  .setProject(runtimeConfig.public.PROJECT_ID);
+
+onMounted(() => {
+  if (account.get() !== null) {
+    try {
+      client.subscribe('documents', (response) => {
+        console.log(response);
+      });
+    } catch (error) {
+      console.log(error, 'error');
     }
-  },
-  methods: {
-    toggleSidebar() {
-      this.isSidebarOpen = !this.isSidebarOpen;
-    },
-    logOut: async () => {
-      try {
-        await account.deleteSession("current");
-        window.location.href = "/";
-        alert("See ya later 🎉");
-      } catch (err) {
-        console.error(err);
-        alert("Encountered an error 😪");
-      }
-    },
-  },
+  }
+});
+
+const isSidebarOpen = ref(false);
+
+const toggleSidebar = () => {
+  isSidebarOpen.value = !isSidebarOpen.value;
+};
+
+const logOut = async () => {
+  try {
+    await account.deleteSession('current');
+    window.location.href = '/';
+    alert('See ya later 🎉');
+  } catch (err) {
+    console.error(err);
+    alert('Encountered an error 😪');
+  }
 };
 </script>
+
 <style>
 .sidebar-wrapper {
   display: flex;

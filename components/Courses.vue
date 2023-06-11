@@ -100,7 +100,6 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { createAnonymousSession } from "@/utils/web-init";
 import { getDocument } from "pdfjs-dist";
 import { Client, Account, Databases, Storage, Query } from "appwrite";
 
@@ -185,7 +184,6 @@ const getThumbnailUrl = async (fileUrl) => {
 };
 
 onMounted(async () => {
-  createAnonymousSession();
   if (account.get !== null) {
     try {
       client.subscribe("documents", (response) => {
@@ -221,20 +219,6 @@ export default {
   },
 };
 </script>
-<!-- <template>
-  <div class="file-preview">
-    <div class="thumbnail">
-      <img :src="getThumbnailUrl(course.link)" alt="Thumbnail" />
-    </div>
-    <a
-      :href="course.link"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="preview-link"
-      >Open</a
-    >
-  </div>
-</template> -->
 
 <!-- <script>
 import { ref, onMounted } from "vue";
