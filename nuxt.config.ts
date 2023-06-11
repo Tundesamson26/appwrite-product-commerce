@@ -8,10 +8,6 @@ export default({
       postcss: false
     }
   },
-  plugins: [
-    // Other plugins
-    { src: '~/plugins/pdf.js', mode: 'client' },
-  ],
   runtimeConfig: {
     public: {
       PROJECT_ID: process.env.NUXT_PROJECT_ID,
