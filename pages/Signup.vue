@@ -82,14 +82,14 @@ import "@appwrite.io/pink";
 import "@appwrite.io/pink-icons";
 import { account, client } from "~/utils/web-init";
 
-account.createAnonymousSession().then(
-  (response) => {
-    console.log(response);
-  },
-  (error) => {
-    console.log(error);
-  }
-);
+// account.createAnonymousSession().then(
+//   (response) => {
+//     console.log(response);
+//   },
+//   (error) => {
+//     console.log(error);
+//   }
+// );
 
 export default {
   data: () => ({
