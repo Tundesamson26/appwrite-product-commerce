@@ -27,7 +27,7 @@
               </div>
               <div class="file-preview">
                 <div class="thumbnail">
-                  <img :src="getThumbnailUrl(course.link)" alt="Thumbnail" />
+                  <img src="/pdfThumb.png" alt="Thumbnail" />
                 </div>
                 <a
                   :href="course.link"
@@ -100,7 +100,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { getDocument } from "pdfjs-dist";
+// import { getDocument } from "pdfjs-dist";
 import { Client, Account, Databases, Storage, Query } from "appwrite";
 
 const courses = ref([]);
@@ -127,7 +127,7 @@ const getCourses = async () => {
         fileId
       );
 
-      const thumbnailUrl = await getThumbnailUrl(link);
+      // const thumbnailUrl = await getThumbnailUrl(link);
 
       const courseData = await databases.listDocuments(
         runtimeConfig.public.COURSE_DB_ID,
@@ -141,7 +141,7 @@ const getCourses = async () => {
         courseTitle: courseData.documents[0].courseTitle,
         courseDesc: courseData.documents[0].courseDesc,
         coursePrice: courseData.documents[0].coursePrice,
-        thumbnailUrl: thumbnailUrl,
+        // thumbnailUrl: thumbnailUrl,
       };
     });
 
@@ -152,36 +152,36 @@ const getCourses = async () => {
   }
 };
 
-const getThumbnailUrl = async (fileUrl) => {
-  try {
-    const loadingTask = getDocument({ url: fileUrl, worker: '/pdf.worker.js' });
-    const pdf = await loadingTask.promise;
-    const thumbnailPageNum = 1; // The page number to generate the thumbnail from
-    const thumbnailScale = 0.5; // The scale factor for the thumbnail size
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d");
+// const getThumbnailUrl = async (fileUrl) => {
+//   try {
+//     const loadingTask = getDocument({ url: fileUrl, worker: '/pdf.worker.js' });
+//     const pdf = await loadingTask.promise;
+//     const thumbnailPageNum = 1; // The page number to generate the thumbnail from
+//     const thumbnailScale = 0.5; // The scale factor for the thumbnail size
+//     const canvas = document.createElement("canvas");
+//     const context = canvas.getContext("2d");
 
-    const page = await pdf.getPage(thumbnailPageNum);
-    const viewport = page.getViewport({ scale: thumbnailScale });
+//     const page = await pdf.getPage(thumbnailPageNum);
+//     const viewport = page.getViewport({ scale: thumbnailScale });
 
-    canvas.width = viewport.width;
-    canvas.height = viewport.height;
+//     canvas.width = viewport.width;
+//     canvas.height = viewport.height;
 
-    const renderContext = {
-      canvasContext: context,
-      viewport: viewport,
-    };
+//     const renderContext = {
+//       canvasContext: context,
+//       viewport: viewport,
+//     };
 
-    await page.render(renderContext).promise;
+//     await page.render(renderContext).promise;
 
-    const thumbnailUrl = canvas.toDataURL();
+//     const thumbnailUrl = canvas.toDataURL();
 
-    return thumbnailUrl;
-  } catch (error) {
-    console.log(error.message);
-    return ""; // Return an empty string if an error occurs during thumbnail generation
-  }
-};
+//     return thumbnailUrl;
+//   } catch (error) {
+//     console.log(error.message);
+//     return ""; // Return an empty string if an error occurs during thumbnail generation
+//   }
+// };
 
 onMounted(async () => {
   if (account.get !== null) {

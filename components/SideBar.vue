@@ -71,7 +71,7 @@ client
   .setProject(runtimeConfig.public.PROJECT_ID);
 
 onMounted(() => {
-  if (account.get() !== null) {
+  if (account.get && account.get() !== null) {
     try {
       client.subscribe('documents', (response) => {
         console.log(response);
@@ -94,7 +94,7 @@ const logOut = async () => {
     window.location.href = '/';
     alert('See ya later 🎉');
   } catch (err) {
-    console.error(err);
+    console.error(err.message);
     alert('Encountered an error 😪');
   }
 };
