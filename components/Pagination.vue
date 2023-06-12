@@ -55,3 +55,5 @@
     </a>
   </nav>
 </template>
+<script setup>
+</script>
