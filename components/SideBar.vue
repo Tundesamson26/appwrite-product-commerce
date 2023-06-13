@@ -60,12 +60,14 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { Client, Account } from "appwrite";
+import { useRouter } from 'vue-router';
 import "@appwrite.io/pink"; // optionally, add icons 
 import "@appwrite.io/pink-icons";
 
 const client = new Client();
 const account = new Account(client);
 const runtimeConfig = useRuntimeConfig();
+const $router = useRouter();
 
 
 client
@@ -93,7 +95,7 @@ const toggleSidebar = () => {
 const logOut = async () => {
   try {
     await account.deleteSession('current');
-    window.location.href = '/';
+    $router.push({ path: '/' });
     alert('See ya later 🎉');
   } catch (err) {
     console.error(err.message);

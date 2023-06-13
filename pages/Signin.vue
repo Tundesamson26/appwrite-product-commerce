@@ -66,6 +66,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { Client, Account } from 'appwrite';
+import { useRouter } from 'vue-router';
 
 import '@appwrite.io/pink';
 import '@appwrite.io/pink-icons';
@@ -73,6 +74,7 @@ import '@appwrite.io/pink-icons';
 const client = new Client();
 const account = new Account(client);
 const runtimeConfig = useRuntimeConfig();
+const $router = useRouter();
 
 client
   .setEndpoint(runtimeConfig.public.API_ENDPOINT)
