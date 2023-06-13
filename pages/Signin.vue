@@ -63,41 +63,45 @@
   </section>
 </template>
 
-<script>
-import { account, client } from "~/utils/web-init";
-import "@appwrite.io/pink"; // optionally, add icons 
-import "@appwrite.io/pink-icons";
+<script setup>
+import { ref, onMounted } from 'vue';
+import { Client, Account } from 'appwrite';
 
-export default {
-  data() {
-    return {
-      email: "",
-      password: "",
-    };
-  },
-  mounted() {
-    if (account.get() !== null) {
-      try {
-        client.subscribe("documents", (response) => {
-          console.log(response);
-        });
-      } catch (error) {
-        console.log(error, "error");
-      }
+import '@appwrite.io/pink';
+import '@appwrite.io/pink-icons';
+
+const client = new Client();
+const account = new Account(client);
+const runtimeConfig = useRuntimeConfig();
+
+client
+  .setEndpoint(runtimeConfig.public.API_ENDPOINT)
+  .setProject(runtimeConfig.public.PROJECT_ID);
+
+const email = ref('');
+const password = ref('');
+
+onMounted(() => {
+  if (account.get() !== null) {
+    try {
+      client.subscribe('documents', (response) => {
+        console.log(response);
+      });
+    } catch (error) {
+      console.log(error, 'error');
     }
-  },
+  }
+});
 
-  methods: {
-    signIn: async function () {
-      try {
-        await account.createEmailSession(this.email, this.password);
-        alert("user signed in");
-        this.$router.push({ path: `/dashboard` });
-      } catch (e) {
-        alert("user not exist");
-        console.log(e);
-      }
-    },
-  },
+const signIn = async () => {
+  try {
+    await account.createEmailSession(email.value, password.value);
+    alert('user signed in');
+    $router.push({ path: '/dashboard' });
+  } catch (e) {
+    alert('user does not exist');
+    console.log(e);
+  }
 };
 </script>
+
