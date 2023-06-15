@@ -137,7 +137,7 @@ const logOut = async () => {
 
   .sidebar-wrapper .sidebar-open {
     width: 250px; /* Set the width to its original value when open on mobile screens */
-    /* z-index: 999; */
+    z-index: 999;
   }
 
   .sidebar-wrapper .menu-button {
