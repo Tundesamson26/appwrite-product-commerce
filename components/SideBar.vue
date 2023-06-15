@@ -75,7 +75,7 @@ client
   .setProject(runtimeConfig.public.PROJECT_ID);
 
 onMounted(() => {
-  if (account.get && account.get() !== null) {
+  if (account.get() !== null) {
     try {
       client.subscribe('documents', (response) => {
         console.log(response);

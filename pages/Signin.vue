@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="container">
     <div
       class="card u-cross-center u-width-full-line u-max-width-400"
       style="margin: 100px auto"

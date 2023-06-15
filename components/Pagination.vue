@@ -11,14 +11,6 @@
         >
       </li>
       <li class="pagination-item">
-        <button
-          class="button is-text /*u-hide*/"
-          aria-label="show prev 5 pages"
-        >
-          <span class="icon">…</span>
-        </button>
-      </li>
-      <li class="pagination-item">
         <button class="button is-text" aria-label="page">
           <span class="text">2</span>
         </button>
@@ -36,16 +28,6 @@
       <li class="pagination-item">
         <button class="button is-text" aria-label="page">
           <span class="text">5</span>
-        </button>
-      </li>
-      <li class="pagination-item">
-        <button class="button is-text" aria-label="show next 5 pages">
-          <span class="icon">…</span>
-        </button>
-      </li>
-      <li class="pagination-item">
-        <button class="button is-text" aria-label="page">
-          <span class="text">20</span>
         </button>
       </li>
     </ol>
