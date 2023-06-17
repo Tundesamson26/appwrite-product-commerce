@@ -5,4 +5,11 @@
   </div>
   <Support/>
 </template>
+<style>
+@media (max-width: 768px){
+  /* .u-flex{
+  display: none;
+} */
+}
+</style>
 <script></script>

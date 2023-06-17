@@ -207,6 +207,8 @@ export default {
       .setEndpoint(runtimeConfig.public.API_ENDPOINT)
       .setProject(runtimeConfig.public.PROJECT_ID);
 
+    //Pagination page logic
+
     const editProduct = (productId) => {
       const productIndex = products.value.findIndex((product) => product.$id === productId);
       if (productIndex !== -1) {
