@@ -39,3 +39,21 @@
 </template>
 <script setup>
 </script>
+<script>
+export default {
+  props: {
+    currentPage: {
+      type: Number,
+      required: true,
+    },
+  },
+  methods: {
+    onNextPage() {
+      this.$emit("page-change", this.currentPage + 1);
+    },
+    onPrevPage() {
+      this.$emit("page-change", this.currentPage - 1);
+    },
+  },
+};
+</script>
