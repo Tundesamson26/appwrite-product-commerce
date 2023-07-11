@@ -61,7 +61,7 @@
 import { ref, onMounted } from 'vue';
 import { Client, Account } from "appwrite";
 import { useRouter } from 'vue-router';
-import "@appwrite.io/pink"; // optionally, add icons 
+import "@appwrite.io/pink"; 
 import "@appwrite.io/pink-icons";
 
 const client = new Client();
@@ -108,7 +108,7 @@ const logOut = async () => {
 .sidebar-wrapper {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Set the height to full viewport height */
+  min-height: 100vh; 
   flex: 0 0 auto;
   width: 250px;
 }
