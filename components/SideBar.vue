@@ -147,7 +147,7 @@ const logOut = async () => {
 
 @media (min-width: 769px) {
   .sidebar-wrapper .menu-button {
-    display: none; /* Hide the button on desktop screens */
+    display: none;
   }
 }
 </style>
