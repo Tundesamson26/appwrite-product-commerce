@@ -141,7 +141,7 @@ const logOut = async () => {
   }
 
   .sidebar-wrapper .menu-button {
-    display: block; /* Show the button only on mobile screens */
+    display: block;
   }
 }
 
